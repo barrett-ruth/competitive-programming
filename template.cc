@@ -24,16 +24,16 @@ typedef long long ll;
 #define mod 10e9 + 7
 
 void solve() {
-
+    
 }
 
 int main() {
-  ios_base::sync_with_stdio(0);
-  cin.tie(0);
-  cout.tie(0);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
 
-  int cases;
-  cin >> cases;
-  while (cases--)
-    solve();
+    int cases;
+    cin >> cases;
+    while (cases--)
+        solve();
 }

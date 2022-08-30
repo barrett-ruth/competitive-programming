@@ -3,11 +3,11 @@ class Solution:
         complements: dict[int, int] = {}
 
         for i, num in enumerate(nums):
-            complement = complements.get(num)
+            complement = target - num
 
-            if complement is not None:
-                return [complement, i]
+            if complement in complements:
+                return [complements[complement], i]
             else:
-                complements[target - num] = i
+                complements[num] = i
 
         return []

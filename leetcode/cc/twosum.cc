@@ -4,7 +4,7 @@
 using namespace std;
 
 class Solution {
-public:
+ public:
   vector<int> twoSum(vector<int> &nums, int target) {
     unordered_map<int, int> um;
 
@@ -12,8 +12,7 @@ public:
       auto num = nums.at(i);
       auto it = um.find(target - num);
 
-      if (it != um.end())
-        return vector<int>{i, it->second};
+      if (it != um.end()) return vector<int>{i, it->second};
 
       um[num] = i;
     }

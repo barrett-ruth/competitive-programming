@@ -1,19 +1,23 @@
 # Resources
 
 ## Methodology
+
 * [Handbook Approach](https://www.techinterviewhandbook.org/coding-interview-prep/)
 
 ## Material
+
 * [Algorithms](~/tb/algorithms.pdf)
 * [Data Structures](~/tb/data-structures.pdf)
 * [cp-algorithms](https://cp-algorithms.com)
 * [Competitive Programmer's Handbook](~/tb/cp-handbook.pdf)
 
 ## C++ STL
+
 * [Textbook](~/tb/stl.pdf)
 * [TopCoder](https://www.hackerrank.com/domains/cpp/stl/page/1)
 
 ## Problems
+
 * [HackerRank](https://hackerrank.com)
 * [Codeforces](https://codeforces.com/)
 * [Grind 75](https://grind75.com)

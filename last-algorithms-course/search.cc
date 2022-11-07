@@ -39,7 +39,7 @@ int bisect_left(vector<int> arr, int val, int lo, int hi) {
 
     if (arr[mid] < val)
       lo = mid + 1;
-    else
+    else // arr[mid] >= val
       hi = mid;
   }
 

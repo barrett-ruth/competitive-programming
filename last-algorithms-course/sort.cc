@@ -18,11 +18,29 @@ void bubble_sort(vector<int>& arr) {
   }
 }
 
+// Insertion sort
+// O(n^2) time complexity
+// O(1) space complexity
+void insertion_sort(vector<int>& arr) {
+  for (int i = 1; i < (int)arr.size(); ++i) {
+    int j = i - 1;
+    int key = arr[i];
+
+    while (j > -1 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      --j;
+    }
+
+    arr[j + 1] = key;
+  }
+}
+
 int main() {
   vector<int> arr = {123, 1, 2, 3, 122, -2};
 
   for (const auto& e : arr) std::cout << e << ' ';
   std::cout << '\n';
-  bubble_sort(arr);
+  /* bubble_sort(arr); */
+  insertion_sort(arr);
   for (const auto& e : arr) std::cout << e << ' ';
 }

@@ -61,7 +61,9 @@ int bisect_right(vector<int> arr, int val, int lo, int hi) {
 }
 
 int main() {
-  vector<int> arr = {1, 7, 7, 7, 8, 12, 14, 23};
+  vector<int> arr = {1, 6, 8, 8, 12, 14, 23};
+
+  std::cout << binary_search(arr, 8, 0, (int)arr.size());
 
   for (const auto& e : arr) {
     std::cout << linear_search(arr, e);

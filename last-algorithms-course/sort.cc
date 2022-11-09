@@ -35,12 +35,38 @@ void insertion_sort(vector<int>& arr) {
   }
 }
 
+int partition(vector<int>& arr, int lo, int hi) {
+  /* int pivot = lo + (hi - lo) / 2; */
+
+  int pivot = arr[hi];  // last index for now
+  int i = lo;
+
+  for (int j = lo; j < hi; ++j) {
+    if (arr[j] < pivot) std::swap(arr[i++], arr[j]);
+  }
+
+  std::swap(arr[i], arr[hi]);
+
+  return i;
+}
+
+void quicksort(vector<int>& arr, int lo, int hi) {
+  if (lo >= hi) return;
+
+  int idx = partition(arr, lo, hi);
+  quicksort(arr, lo, idx - 1);
+  quicksort(arr, idx + 1, hi);
+}
+
+void quicksort(vector<int>& arr) { quicksort(arr, 0, (int)arr.size() - 1); }
+
 int main() {
   vector<int> arr = {123, 1, 2, 3, 122, -2};
 
   for (const auto& e : arr) std::cout << e << ' ';
   std::cout << '\n';
   /* bubble_sort(arr); */
-  insertion_sort(arr);
+  /* insertion_sort(arr); */
+  quicksort(arr);
   for (const auto& e : arr) std::cout << e << ' ';
 }

@@ -6,14 +6,14 @@
 
 ## Material
 
-- [Algorithms](~/tb/algorithms.pdf)
-- [Data Structures](~/tb/data-structures.pdf)
+- [Algorithms](~/doc/tb/algorithms.pdf)
+- [Data Structures](~/doc/tb/data-structures.pdf)
 - [cp-algorithms](https://cp-algorithms.com)
-- [Competitive Programmer's Handbook](~/tb/cp-handbook.pdf)
+- [Competitive Programmer's Handbook](~/doc/tb/cp-handbook.pdf)
 
 ## C++ STL
 
-- [Textbook](~/tb/stl.pdf)
+- [Textbook](~/doc/tb/stl.pdf)
 - [TopCoder](https://www.hackerrank.com/domains/cpp/stl/page/1)
 
 ## Problems

@@ -36,16 +36,43 @@ void insertion_sort(vector<int>& arr) {
 }
 
 int partition(vector<int>& arr, int lo, int hi) {
-  /* int pivot = lo + (hi - lo) / 2; */
+  // Hi index implementation
+  /* int pivot = arr[hi]; */
+  /* int i = lo; */
+  /**/
+  /* for (int j = lo; j < hi; ++j) { */
+  /*   if (arr[j] < pivot) std::swap(arr[j], arr[i++]); */
+  /* } */
+  /**/
+  /* std::swap(arr[i], arr[hi]); */
 
-  int pivot = arr[hi];  // last index for now
+  // Lo index implementation
+  /* int pivot = arr[lo]; */
+  /* int i = lo; */
+  /**/
+  /* for (int j = lo + 1; j <= hi; ++j) { */
+  /*   if (arr[j] < pivot) std::swap(arr[j], arr[++i]); */
+  /* } */
+  /**/
+  /* std::swap(arr[lo], arr[i]); */
+
+  // Middle index implementation
+  int mid = lo + (hi - lo) / 2;
+  int pivot = arr[mid];
   int i = lo;
 
-  for (int j = lo; j < hi; ++j) {
-    if (arr[j] < pivot) std::swap(arr[i++], arr[j]);
+  for (int j = lo; j < mid; ++j) {
+    if (arr[j] < pivot) std::swap(arr[j], arr[i++]);
   }
 
-  std::swap(arr[i], arr[hi]);
+  for (int j = mid + 1; j <= hi; ++j) {
+    if (arr[j] < pivot) {
+      if (i == mid) ++i;
+      if (i < hi) std::swap(arr[j], arr[i++]);
+    }
+  }
+
+  std::swap(arr[i], arr[mid]);
 
   return i;
 }
@@ -61,7 +88,7 @@ void quicksort(vector<int>& arr, int lo, int hi) {
 void quicksort(vector<int>& arr) { quicksort(arr, 0, (int)arr.size() - 1); }
 
 int main() {
-  vector<int> arr = {123, 1, 2, 3, 122, -2};
+  vector<int> arr = {-2, -3, 123, 0, 123, 1, 1, 2, 0, 3, 122, -2};
 
   for (const auto& e : arr) std::cout << e << ' ';
   std::cout << '\n';

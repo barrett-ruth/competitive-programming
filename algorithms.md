@@ -9,4 +9,9 @@
 - Bitwise Operations
 - Greedy/Knapsack
 - Sorting
+  - [x] Bubble Sort
+  - [x] Insertion Sort
+  - [x] Quicksort
+  - Mergesort
+  - Bucket sort
 - Dynamic Programming

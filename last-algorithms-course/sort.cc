@@ -37,14 +37,16 @@ void insertion_sort(vector<int>& arr) {
 
 int partition(vector<int>& arr, int lo, int hi) {
   // Hi index implementation
-  /* int pivot = arr[hi]; */
-  /* int i = lo; */
-  /**/
-  /* for (int j = lo; j < hi; ++j) { */
-  /*   if (arr[j] < pivot) std::swap(arr[j], arr[i++]); */
-  /* } */
-  /**/
-  /* std::swap(arr[i], arr[hi]); */
+  int i = lo;
+  int pivot = arr[hi];
+
+  for (int j = lo; j < hi; ++j) {
+    if (arr[j] <= pivot) std::swap(arr[j], arr[i++]);
+  }
+
+  std::swap(arr[i], arr[hi]);
+
+  return i;
 
   // Lo index implementation
   /* int pivot = arr[lo]; */
@@ -57,24 +59,24 @@ int partition(vector<int>& arr, int lo, int hi) {
   /* std::swap(arr[lo], arr[i]); */
 
   // Middle index implementation
-  int mid = lo + (hi - lo) / 2;
-  int pivot = arr[mid];
-  int i = lo;
+  /* int mid = lo + (hi - lo) / 2; */
+  /* int pivot = arr[mid]; */
+  /* int i = lo; */
+  /**/
+  /* for (int j = lo; j < mid; ++j) { */
+  /*   if (arr[j] < pivot) std::swap(arr[j], arr[i++]); */
+  /* } */
+  /**/
+  /* for (int j = mid + 1; j <= hi; ++j) { */
+  /*   if (arr[j] < pivot) { */
+  /*     if (i == mid) ++i; */
+  /*     if (i < hi) std::swap(arr[j], arr[i++]); */
+  /*   } */
+  /* } */
+  /**/
+  /* std::swap(arr[i], arr[mid]); */
 
-  for (int j = lo; j < mid; ++j) {
-    if (arr[j] < pivot) std::swap(arr[j], arr[i++]);
-  }
-
-  for (int j = mid + 1; j <= hi; ++j) {
-    if (arr[j] < pivot) {
-      if (i == mid) ++i;
-      if (i < hi) std::swap(arr[j], arr[i++]);
-    }
-  }
-
-  std::swap(arr[i], arr[mid]);
-
-  return i;
+  /* return i; */
 }
 
 void quicksort(vector<int>& arr, int lo, int hi) {
@@ -87,6 +89,37 @@ void quicksort(vector<int>& arr, int lo, int hi) {
 
 void quicksort(vector<int>& arr) { quicksort(arr, 0, (int)arr.size() - 1); }
 
+void merge(vector<int>& arr, int lo, int mid, int hi) {
+  int left[mid - lo + 1];
+  int right[hi - mid];
+
+  for (int i = 0; i < mid - lo + 1; ++i) left[i] = arr[lo + i];
+
+  for (int i = 0; i < hi - mid; ++i) right[i] = arr[mid + 1 + i];
+
+  int i = 0, j = 0, k = lo;
+
+  while (i < mid - lo + 1 && j < hi - mid)
+    if (left[i] <= right[j])
+      arr[k++] = left[i++];
+    else
+      arr[k++] = right[j++];
+
+  while (i < mid - lo + 1) arr[k++] = left[i++];
+  while (j < hi - mid) arr[k++] = right[j++];
+}
+
+void mergesort(vector<int>& arr, int lo, int hi) {
+  if (lo >= hi) return;
+
+  int mid = lo + (hi - lo) / 2;
+  mergesort(arr, lo, mid);
+  mergesort(arr, mid + 1, hi);
+  merge(arr, lo, mid, hi);
+}
+
+void mergesort(vector<int>& arr) { mergesort(arr, 0, (int)arr.size() - 1); }
+
 int main() {
   vector<int> arr = {-2, -3, 123, 0, 123, 1, 1, 2, 0, 3, 122, -2};
 
@@ -94,6 +127,7 @@ int main() {
   std::cout << '\n';
   /* bubble_sort(arr); */
   /* insertion_sort(arr); */
-  quicksort(arr);
+  // quicksort(arr);
+  mergesort(arr);
   for (const auto& e : arr) std::cout << e << ' ';
 }

@@ -1,13 +1,17 @@
-# CP
+# Competitive Programming
 
 Repository of algorithms and data structures used to aid my competitive
 programming/interview prep journey.
 
-## Last Algorithms Course
+## [Tips](tips.md)
 
-Collection of algorithm implementations from ThePrimeagen's "Last Algorithms
-Course You'll Ever Need" offered by [Frontend Masters](https://frontendmasters.com).
+Journal of lessons I learn from individual problems and overall helpful advice.
 
-## Leetcode
+## [Checklist](checklist.md)
 
-Collection of leetcode problem solutions in python, java, and c++.
+List of algorithms, concepts, and data structures I am learning as well as
+associated problems
+
+## [Resources](resources.md)
+
+List of competitive programming resources I use.

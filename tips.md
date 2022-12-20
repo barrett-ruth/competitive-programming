@@ -18,3 +18,10 @@
 
 - LRU cache requires addition and deletion of nodes. To maintain a clean
   interface, `add()` and `remove()` methods should only accept a node.
+
+## [LC #125: Valid Palindrome](https://leetcode.com/problems/valid-palindrome/description/)
+
+1. With two pointers, perform one operation per iteration
+
+- Attempting to adjust both left and right pointers in the same iteration
+  introduced complexity. Discrete, clear-intended loops are better.

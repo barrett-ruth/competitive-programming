@@ -20,7 +20,8 @@
 
 - Binary Search
 - Sliding Window
-- Two Pointers
+- Two Pointers ([LC #125](https://leetcode.com/problems/valid-palindrome), [LC
+  #11](https://leetcode.com/problems/container-with-most-water))
 - Fast and Slow Pointers
 - Depth-first Search
 - Breadth-first Search
@@ -37,7 +38,7 @@
 ## Data Structures
 
 - Array
-- Hashmap ([LC #146](https://leetcode.com/problems/lru-cache/description/))
+- Hashmap ([LC #146](https://leetcode.com/problems/lru-cache))
 - Heap
 - Graphs
 - Set

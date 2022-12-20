@@ -18,7 +18,7 @@
 
 ## Algorithms
 
-- [x] Binary Search
+- Binary Search
 - Sliding Window
 - Two Pointers
 - Fast and Slow Pointers
@@ -27,24 +27,23 @@
 - Bitwise Operations
 - Greedy/Knapsack
 - Sorting
-  - [x] Bubble Sort
-  - [x] Insertion Sort
-  - [x] Quicksort
+  - Bubble Sort
+  - Insertion Sort
+  - Quicksort
   - Mergesort
   - Bucket sort
 - Dynamic Programming
 
 ## Data Structures
 
-- [x] Array
-- [x] Hashmap ([LC #146](https://leetcode.com/problems/lru-cache/description/))
+- Array
+- Hashmap ([LC #146](https://leetcode.com/problems/lru-cache/description/))
 - Heap
 - Graphs
 - Set
 - Stack
-- Linked Lists
-  - [x] Singly
-  - [x] Doubly ([LC #146](https://leetcode.com/problems/lru-cache/description/))
+- Linked Lists ([LC #146](https://leetcode.com/problems/lru-cache/description/))
+  1. Use dummy head and tail nodes to trivalize add/remove operations.
 - Tree
   - Binary
   - Binary Search

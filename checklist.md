@@ -32,7 +32,7 @@
   - Insertion Sort
   - Quicksort
   - Mergesort
-  - Bucket sort
+  - Bucket sort [LC #347](https://leetcode.com/problems/top-k-frequent-elements/)
 - Dynamic Programming
 
 ## Data Structures

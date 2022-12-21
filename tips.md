@@ -25,3 +25,11 @@
 
 - Attempting to adjust both left and right pointers in the same iteration
   introduced complexity. Discrete, clear-intended loops are better.
+
+## [LC #347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
+
+1. Python can be annoying*
+
+- *Dealing with lists without being able to specify exact lengths is a pain,
+  especially while doing bucket sort in this problem. In scenarios like these
+  the explicit nature of languages like c++ shine.

@@ -28,8 +28,15 @@
 
 ## [LC #347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
 
-1. Python can be annoying*
+1. Python can be annoying
 
-- *Dealing with lists without being able to specify exact lengths is a pain,
+- Dealing with lists without being able to specify exact lengths is a pain,
   especially while doing bucket sort in this problem. In scenarios like these
   the explicit nature of languages like c++ shine.
+
+2. Perform one operation per iteration
+
+- As stated in the valid palindrome tips, performing one operation per loop
+  greatly simplifies algorithms as well as eases debugging. In this case,
+  separating an outer while loop to deal with bucket indices and an inner with
+  elements created a clear solution.

@@ -1,3 +1,4 @@
 .null-ls.*
 *.debug
 *.run
+exe

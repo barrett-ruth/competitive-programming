@@ -1,9 +1,0 @@
-a.cc: In function ‘void solve()’:
-a.cc:74:14: error: expected ‘;’ before ‘}’ token
-   74 |   dbgln("hi")
-      |              ^
-      |              ;
-   75 | }
-      | ~             
-
-[code]: 1

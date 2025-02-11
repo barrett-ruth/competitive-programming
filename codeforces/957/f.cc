@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>  // {{{
+//  {{{
+#include <bits/stdc++.h>
 
 // https://codeforces.com/blog/entry/96344
 
@@ -62,15 +63,55 @@ using vec = std::vector<T>;
 #define pb push_back
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
+//  }}}
+
+bitset<2 * 100000 + 5 + 1> used;
+vec<int> I;
 
 void solve() {
-  prln(5);
+  ll n, x;
+  cin >> n >> x;
+  vec<ll> a(n);
+  for (auto& e : a)
+    cin >> e;
+
+  used.reset();
+  I = {1};
+
+  ll ans = 1;
+
+  for (auto number : a) {
+    if (x % number)
+      continue;
+    vec<int> nxt;
+    for (auto i : I) {
+      if (i * number >= sz<ll>(used))
+        continue;
+      if (i * number == x) {
+        ++ans;
+        used.reset();
+        used[number] = true;
+        I.clear();
+        nxt = {1};
+        nxt.pb(number);
+        break;
+      }
+      if (!used[i * number]) {
+        nxt.pb(i * number);
+        used[i * number] = true;
+      }
+    }
+    I.insert(I.end(), all(nxt));
+  }
+
+  prln("{}", ans);
 }
 
-int main() {  // {{{
+// {{{
+int main() {
   cin.tie(nullptr)->sync_with_stdio(false);
 
-  int t = 1;
+  ll t = 1;
   cin >> t;
 
   while (t--) {
@@ -78,4 +119,5 @@ int main() {  // {{{
   }
 
   return 0;
-}  //}}}
+}
+// }}}

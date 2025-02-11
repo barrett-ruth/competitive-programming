@@ -66,14 +66,38 @@ using vec = std::vector<T>;
 //  }}}
 
 void solve() {
-  string s;
-  cin >> s;
-  bool can = false;
-  for (int i = 1; i < sz<int>(s); ++i) {
-    if (s[i] == s[i - 1])
-      can = true;
+  int n;
+  cin >> n;
+
+  string strn = to_string(n);
+  int lenn = sz<int>(strn);
+
+  vec<pair<int, int>> ans;
+
+  for (int a = 1; a <= 100000; ++a) {
+    // s =|n|a-b; na-b
+
+    // 1<=|n|a-b<=5
+    // b<=|n|a-1    |n|a-5<=b
+    int lo = max(1, lenn * a - 5);
+    int hi = min(10000, lenn * a - 1);
+
+    for (int b = lo; b <= hi; ++b) {
+      int cmp = 0;
+      for (int i = 0; i < lenn * a - b; ++i) {
+        cmp *= 10;
+        cmp += strn[i % lenn] - '0';
+      }
+      if (cmp == n * a - b) {
+        ans.eb(a, b);
+      }
+    }
   }
-  prln("{}", can ? 1 : sz<int>(s));
+
+  prln("{}", sz<int>(ans));
+  for (auto& [a, b] : ans) {
+    prln("{} {}", a, b);
+  }
 }
 
 // {{{

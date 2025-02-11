@@ -24,6 +24,7 @@ template <typename T>
   return static_cast<T>(x.size());
 }
 
+
 template <typename... Args>
 void pr(std::format_string<Args...> fmt, Args&&... args) {
   std::print(fmt, std::forward<Args>(args)...);
@@ -66,14 +67,7 @@ using vec = std::vector<T>;
 //  }}}
 
 void solve() {
-  string s;
-  cin >> s;
-  bool can = false;
-  for (int i = 1; i < sz<int>(s); ++i) {
-    if (s[i] == s[i - 1])
-      can = true;
-  }
-  prln("{}", can ? 1 : sz<int>(s));
+  
 }
 
 // {{{

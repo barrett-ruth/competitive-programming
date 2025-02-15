@@ -1,5 +1,4 @@
-//  {{{
-#include <bits/stdc++.h>
+#include <bits/stdc++.h>  // {{{
 
 // https://codeforces.com/blog/entry/96344
 
@@ -65,52 +64,37 @@ using vec = std::vector<T>;
 #define rall(x) (x).rbegin(), (x).rend()
 //  }}}
 
-bitset<2 * 100000 + 5 + 1> used;
-vec<int> I;
-
 void solve() {
-  ll n, x;
-  cin >> n >> x;
-  vec<ll> a(n);
-  for (auto& e : a)
-    cin >> e;
+  int n;
+  cin >> n;
 
-  used.reset();
-  I = {1};
+  string s;
+  cin >> s;
 
-  ll ans = 1;
+  int last = 0;
+  int ls = 0;
 
-  for (auto number : a) {
-    if (x % number)
-      continue;
-    vec<int> nxt;
-    for (auto i : I) {
-      if (i * number >= sz<ll>(used) || used[i * number])
-        continue;
-      nxt.pb(i * number);
-      used[i * number] = true;
-      if (i * number == x) {
-        ++ans;
-        used.reset();
-        used[number] = true;
-        I.clear();
-        nxt = {1};
-        nxt.pb(number);
-        break;
+  for (int i = 0; i <= sz<int>(s); ++i) {
+    if (s[i] == 'L') {
+      ++ls;
+    } else {
+      last = last + ls + 1;
+      cout << last << '\n';
+      int x = last;
+      for (int j = 0; j < ls; ++j) {
+        --x;
+        cout << x << '\n';
       }
+      ls = 0;
     }
-    I.insert(I.end(), all(nxt));
   }
-
-  prln("{}", ans);
 }
 
-// {{{
-int main() {
+int main() {  // {{{
   cin.tie(nullptr)->sync_with_stdio(false);
 
-  ll t = 1;
-  cin >> t;
+  int t = 1;
+  // cin >> t;
 
   while (t--) {
     solve();
@@ -118,4 +102,4 @@ int main() {
 
   return 0;
 }
-// }}}
+// }}

@@ -1,5 +1,4 @@
-//  {{{
-#include <bits/stdc++.h>
+#include <bits/stdc++.h>  // {{{
 
 // https://codeforces.com/blog/entry/96344
 
@@ -23,6 +22,7 @@ template <typename T>
 [[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
+
 
 template <typename... Args>
 void pr(std::format_string<Args...> fmt, Args&&... args) {
@@ -65,51 +65,14 @@ using vec = std::vector<T>;
 #define rall(x) (x).rbegin(), (x).rend()
 //  }}}
 
-bitset<2 * 100000 + 5 + 1> used;
-vec<int> I;
-
 void solve() {
-  ll n, x;
-  cin >> n >> x;
-  vec<ll> a(n);
-  for (auto& e : a)
-    cin >> e;
-
-  used.reset();
-  I = {1};
-
-  ll ans = 1;
-
-  for (auto number : a) {
-    if (x % number)
-      continue;
-    vec<int> nxt;
-    for (auto i : I) {
-      if (i * number >= sz<ll>(used) || used[i * number])
-        continue;
-      nxt.pb(i * number);
-      used[i * number] = true;
-      if (i * number == x) {
-        ++ans;
-        used.reset();
-        used[number] = true;
-        I.clear();
-        nxt = {1};
-        nxt.pb(number);
-        break;
-      }
-    }
-    I.insert(I.end(), all(nxt));
-  }
-
-  prln("{}", ans);
+  
 }
 
-// {{{
-int main() {
+int main() {  // {{{
   cin.tie(nullptr)->sync_with_stdio(false);
 
-  ll t = 1;
+  int t = 1;
   cin >> t;
 
   while (t--) {

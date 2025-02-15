@@ -1,5 +1,4 @@
-//  {{{
-#include <bits/stdc++.h>
+#include <bits/stdc++.h>  // {{{
 
 // https://codeforces.com/blog/entry/96344
 
@@ -65,52 +64,62 @@ using vec = std::vector<T>;
 #define rall(x) (x).rbegin(), (x).rend()
 //  }}}
 
-bitset<2 * 100000 + 5 + 1> used;
-vec<int> I;
-
 void solve() {
-  ll n, x;
-  cin >> n >> x;
-  vec<ll> a(n);
-  for (auto& e : a)
-    cin >> e;
+  int n;
+  cin >> n;
+  vec<array<array<int, 5>, 5>> cards(n);
+  vec<array<bitset<3001>, 5>> bitsets(n);
+  vec<vec<int>> val_to_row(n, vec<int>(3001, -1));
 
-  used.reset();
-  I = {1};
-
-  ll ans = 1;
-
-  for (auto number : a) {
-    if (x % number)
-      continue;
-    vec<int> nxt;
-    for (auto i : I) {
-      if (i * number >= sz<ll>(used) || used[i * number])
-        continue;
-      nxt.pb(i * number);
-      used[i * number] = true;
-      if (i * number == x) {
-        ++ans;
-        used.reset();
-        used[number] = true;
-        I.clear();
-        nxt = {1};
-        nxt.pb(number);
-        break;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < 5; ++j) {
+      for (auto& value : cards[i][j]) {
+        cin >> value;
+        val_to_row[i][value] = j;
+        bitsets[i][j][value] = true;
       }
     }
-    I.insert(I.end(), all(nxt));
   }
 
-  prln("{}", ans);
+  for (int i = 0; i < n; ++i) {
+    for (int j = i + 1; j < n; ++j) {
+      for (int k = 0; k < 5; ++k) {
+        for (auto& value : cards[i][k]) {
+          if (val_to_row[j][value] == -1)
+            continue;
+          auto both = bitsets[i][k] | bitsets[j][val_to_row[j][value]];
+          both[value] = false;
+
+          bool bad = false;
+          for (int c = 0; c < n && !bad; ++c) {
+            if (c == i || c == j)
+              continue;
+            for (int d = 0; d < 5; ++d) {
+              if ((bitsets[c][d] & both).count() == 5) {
+                bad = true;
+                break;
+              }
+            }
+          }
+
+          if (!bad) {
+            cout << value << endl;
+            cout << i + 1 << ' ' << j + 1 << endl;
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  prln("no ties");
 }
 
-// {{{
-int main() {
+int main() {  // {{{
   cin.tie(nullptr)->sync_with_stdio(false);
 
-  ll t = 1;
-  cin >> t;
+  int t = 1;
+  // cin >> t;
 
   while (t--) {
     solve();

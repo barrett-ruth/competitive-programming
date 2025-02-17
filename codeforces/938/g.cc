@@ -193,6 +193,7 @@ void solve() {
   auto DP = [&](int factor) -> bool {
     for (int i = 0; i < sz<int>(dp); ++i)
       dp[i].assign(m, false);
+
     dp[0][0] = grid[0][0] % factor == 0;
 
     for (int i = 0; i < n; ++i) {

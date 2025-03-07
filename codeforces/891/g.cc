@@ -61,6 +61,12 @@ template <typename... Ts>
 using pq = std::priority_queue<Ts...>;
 template <typename... Ts>
 using st = std::stack<Ts...>;
+auto lb = [](auto... args) {
+  return std::lower_bound(args...);
+};
+auto ub = [](auto... args) {
+  return std::upper_bound(args...);
+};
 
 #define ff first
 #define ss second
@@ -70,31 +76,87 @@ using st = std::stack<Ts...>;
 #define rall(x) (x).rbegin(), (x).rend()
 //  }}}
 
-void solve() {
-  int n;
-  cin >> n;
-  ve<ll> a(n), b(n);
-  for (auto& e : a)
-    cin >> e;
-  for (auto& e : b)
-    cin >> e;
+template <typename T>
+struct union_find {
+ public:
+  explicit union_find(size_t capacity)
+      : par(capacity), rank(capacity, 0), size(capacity, 1) {
+    iota(all(par), 0);
+  };
 
-  ll best_diff = MIN<ll>();
-  ve<ll> ans;
-  for (int i = 0; i < n; ++i) {
-    auto diff = a[i] - b[i];
-    if (diff > best_diff)
-      ans.clear();
-    best_diff = max(best_diff, diff);
-    if (diff >= best_diff) {
-      ans.eb(i);
-    }
+  void join(T u, T v) noexcept {
+    u = find(u), v = find(v);
+
+    if (u == v)
+      return;
+
+    if (rank[u] < rank[v])
+      std::swap(u, v);
+
+    if (rank[u] == rank[v])
+      ++rank[u];
+
+    par[v] = u;
+    size[u] += size[v];
+    size[v] = size[u];
   }
 
-  prln("{}", ans.size());
-  for (auto& e : ans)
-    pr("{} ", e + 1);
-  prln();
+  [[nodiscard]] T find(T const& u) noexcept {
+    if (u != par[u])
+      par[u] = find(par[u]);
+    return par[u];
+  }
+
+  std::vector<int> par;
+  std::vector<int> rank;
+  std::vector<int> size;
+};
+
+constexpr static int MOD = 998244353;
+
+long long modpow(long long a, long long b,
+                 long long mod = std::numeric_limits<long long>::max()) {
+  long long ans = 1;
+  a %= mod;
+  while (b > 0) {
+    if (b & 1) {
+      ans *= a;
+      ans %= MOD;
+    }
+    a *= a;
+    a %= MOD;
+    b >>= 1;
+  }
+  return ans;
+}
+
+void solve() {
+  int n;
+  ll S;
+  cin >> n >> S;
+  ve<tu<ll, int, int>> e;
+
+  for (int i = 0; i < n - 1; ++i) {
+    int u, v;
+    ll w;
+    cin >> u >> v >> w;
+    e.eb(w, u, v);
+  }
+
+  sort(all(e));
+
+  union_find<int> uf(n + 1);
+  ll ans = 1;
+
+  for (auto& [w, u, v] : e) {
+    ans = (ans * modpow(S - w + 1,
+                        (1LL * uf.size[uf.find(u)] * uf.size[uf.find(v)] - 1),
+                        MOD)) %
+          MOD;
+    uf.join(u, v);
+  }
+
+  prln("{}", ans);
 }
 
 int main() {  // {{{

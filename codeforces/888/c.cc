@@ -18,12 +18,12 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] static T sc(auto &&x) {
+[[nodiscard]] static T sc(auto&& x) {
   return static_cast<T>(x);
 }
 
 template <typename T>
-[[nodiscard]] static T sz(auto &&x) {
+[[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
 
@@ -77,10 +77,57 @@ auto ub = [](auto... args) {
 //  }}}
 
 void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
+  int n, k;
+  cin >> n >> k;
+  ve<int> colors(n);
+  for (auto& e : colors) {
+    cin >> e;
+  }
 
-  prln("{}", ceill(abs((b - a) / 2) / c));
+  // have to start on tile 1, greedily take first k
+  // then, greedily take (backwards) from n - 1 until when you stopped
+  // note divisibility
+
+  int seen = 0;
+  int i;
+  for (i = 0; i < n && seen < k; ++i) {
+    if (colors[i] == colors[0])
+      ++seen;
+  }
+
+  if (colors[0] == colors[n - 1]) {
+    int x = 0;
+    for (int j = 0; j < n; ++j)
+      if (colors[j] == colors[0])
+        ++x;
+    if (x >= k) {
+      YES();
+      return;
+    }
+  }
+
+  // dbgln("found first {} elems {}, ending at {}", seen, colors[0], i);
+
+  if (i == n) {
+    if (seen % k == 0) {
+      YES();
+    } else {
+      NO();
+    }
+    return;
+  }
+
+  seen = 0;
+  for (int j = n - 1; j >= i && seen < k; --j) {
+    if (colors[j] == colors[n - 1])
+      ++seen;
+  }
+
+  if (seen % k == 0) {
+    YES();
+  } else {
+    NO();
+  }
 }
 
 int main() {  // {{{

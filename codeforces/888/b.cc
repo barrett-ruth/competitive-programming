@@ -18,12 +18,12 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] static T sc(auto &&x) {
+[[nodiscard]] static T sc(auto&& x) {
   return static_cast<T>(x);
 }
 
 template <typename T>
-[[nodiscard]] static T sz(auto &&x) {
+[[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
 
@@ -77,10 +77,48 @@ auto ub = [](auto... args) {
 //  }}}
 
 void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
+  int n;
+  cin >> n;
+  ve<int> odds, evens, odd_is, even_is;
 
-  prln("{}", ceill(abs((b - a) / 2) / c));
+  int x;
+  for (int i = 0; i < n; ++i) {
+    cin >> x;
+    if (x & 1) {
+      odds.eb(x);
+      odd_is.eb(i);
+    } else {
+      evens.eb(x);
+      even_is.eb(i);
+    }
+  }
+
+  sort(all(evens));
+  sort(all(even_is));
+  sort(all(odds));
+  sort(all(odd_is));
+
+  int e = 0, o = 0;
+  int last = 0;
+  for (int i = 0; i < n; ++i) {
+    if (e < sz<int>(even_is) && even_is[e] == i) {
+      if (i && evens[e] < last) {
+        NO();
+        return;
+      }
+      last = evens[e];
+      ++e;
+    } else {
+      if (i && odds[o] < last) {
+        NO();
+        return;
+      }
+      last = odds[o];
+      ++o;
+    }
+  }
+
+  YES();
 }
 
 int main() {  // {{{

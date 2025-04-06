@@ -77,10 +77,13 @@ auto ub = [](auto... args) {
 //  }}}
 
 void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
+  string s;
+  cin >> s;
 
-  prln("{}", ceill(abs((b - a) / 2) / c));
+  if (s == "abc" || s == "cba" || s == "acb" || s == "bac")
+    YES();
+  else
+    NO();
 }
 
 int main() {  // {{{

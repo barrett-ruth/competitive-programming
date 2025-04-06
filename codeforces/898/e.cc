@@ -18,12 +18,12 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] static T sc(auto &&x) {
+[[nodiscard]] static T sc(auto&& x) {
   return static_cast<T>(x);
 }
 
 template <typename T>
-[[nodiscard]] static T sz(auto &&x) {
+[[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
 
@@ -77,10 +77,33 @@ auto ub = [](auto... args) {
 //  }}}
 
 void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
+  int n, x;
+  cin >> n >> x;
+  ve<ll> a(n);
+  for (auto& e : a)
+    cin >> e;
 
-  prln("{}", ceill(abs((b - a) / 2) / c));
+  ll l = 1, r = 2'000'000'007;
+
+  auto can = [&](int A) {
+    ll total = 0;
+    for (int i = 0; i < n; ++i) {
+      total += max(0LL, A - a[i]);
+    }
+    return total <= x;
+  };
+
+  while (l <= r) {
+    ll m = l + (r - l) / 2;
+
+    if (can(m)) {
+      l = m + 1;
+    } else {
+      r = m - 1;
+    }
+  }
+
+  prln("{}", r);
 }
 
 int main() {  // {{{

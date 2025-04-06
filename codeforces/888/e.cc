@@ -18,12 +18,12 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] static T sc(auto &&x) {
+[[nodiscard]] static T sc(auto&& x) {
   return static_cast<T>(x);
 }
 
 template <typename T>
-[[nodiscard]] static T sz(auto &&x) {
+[[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
 
@@ -76,11 +76,49 @@ auto ub = [](auto... args) {
 #define rall(x) (x).rbegin(), (x).rend()
 //  }}}
 
-void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
+bitset<2 * 100000 + 1> seen;
 
-  prln("{}", ceill(abs((b - a) / 2) / c));
+void solve() {
+  int n, k;
+  cin >> n >> k;
+  seen.reset();
+  ve<ll> c(n + 1);
+  for (int i = 1; i <= n; ++i) {
+    cin >> c[i];
+  }
+  int p;
+  for (int i = 1; i <= k; ++i) {
+    cin >> p;
+    c[p] = 0;
+    seen[p] = true;
+  }
+  int m;
+  ve<ve<ll>> recipes(n + 1);
+  for (int i = 1; i <= n; ++i) {
+    cin >> m;
+    recipes[i].resize(m);
+    for (int j = 0; j < m; ++j) {
+      cin >> recipes[i][j];
+    }
+  }
+
+  int x = 3;
+
+  auto dfs = [&](auto&& self, int u) {
+    if (seen[u] || recipes[u].empty())
+      return c[u];
+    seen[u] = true;
+    ll total = 0;
+    for (auto& v : recipes[u])
+      total += self(self, v);
+    c[u] = min(c[u], total);
+    return c[u];
+  };
+
+  for (int i = 1; i <= n; ++i) {
+    pr("{} ", dfs(dfs, i));
+  }
+  prln();
 }
 
 int main() {  // {{{

@@ -18,12 +18,12 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] static T sc(auto &&x) {
+[[nodiscard]] static T sc(auto&& x) {
   return static_cast<T>(x);
 }
 
 template <typename T>
-[[nodiscard]] static T sz(auto &&x) {
+[[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
 
@@ -77,16 +77,35 @@ auto ub = [](auto... args) {
 //  }}}
 
 void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
+  int n;
+  cin >> n;
+  ve<ll> a(n);
+  ve<ll> prefix(n + 1, 0);
+  for (int i = 0; i < n; ++i) {
+    cin >> a[i];
+    prefix[i + 1] = prefix[i] + a[i];
+  }
 
-  prln("{}", ceill(abs((b - a) / 2) / c));
+  int l = 0, r = n - 1;
+  while (l <= r) {
+    int m = l + (r - l) / 2;
+    ll weight = prefix[m + 1] - prefix[l];
+    cout << "? " << m - l + 1 << '\n';
+    for (int x = l; x <= m; ++x)
+      cout << ' ' << x + 1;
+    ll x;
+    cin >> x;
+    if (weight == x) {
+      l = m + 1;
+    } else {
+      r = m - 1;
+    }
+  }
+
+  cout << "! " << l + 1 << '\n';
 }
 
 int main() {  // {{{
-  cin.tie(nullptr)->sync_with_stdio(false);
-  cin.exceptions(cin.failbit);
-
   int t = 1;
   cin >> t;
 

@@ -18,12 +18,12 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] static T sc(auto &&x) {
+[[nodiscard]] static T sc(auto&& x) {
   return static_cast<T>(x);
 }
 
 template <typename T>
-[[nodiscard]] static T sz(auto &&x) {
+[[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
 
@@ -76,11 +76,24 @@ auto ub = [](auto... args) {
 #define rall(x) (x).rbegin(), (x).rend()
 //  }}}
 
-void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
+bool recurse(int N, int M) {
+  if (M == N)
+    return true;
+  if (M > N || N % 3)
+    return false;
+  return recurse(N / 3, M) || recurse(N / 3 * 2, M);
+  // NOTE: recurrence relation knowledge weak, wasn't convinced
+  // + mathematical derivation completely broke
+}
 
-  prln("{}", ceill(abs((b - a) / 2) / c));
+void solve() {
+  int n, m;
+  cin >> n >> m;
+
+  if (recurse(n, m)) {
+    YES();
+  } else
+    NO();
 }
 
 int main() {  // {{{

@@ -18,12 +18,12 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] static T sc(auto &&x) {
+[[nodiscard]] static T sc(auto&& x) {
   return static_cast<T>(x);
 }
 
 template <typename T>
-[[nodiscard]] static T sz(auto &&x) {
+[[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
 
@@ -77,10 +77,29 @@ auto ub = [](auto... args) {
 //  }}}
 
 void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
+  string s;
+  cin >> s;
 
-  prln("{}", ceill(abs((b - a) / 2) / c));
+  int ans = 0;
+  int as = s[0] == 'A', bs = s[0] == 'B';
+  for (int i = 1; i < sz<int>(s); ++i) {
+    if (s[i] == 'B') {
+      ans += as;
+      if (s[i - 1] != 'B')
+        bs = 0;
+      for (int j = i - as; j <= i; ++j)
+        s[j] = 'C';
+      as = 0;
+    }
+
+    as += s[i] == 'A';
+    bs += s[i] == 'B';
+  }
+
+  for (int i = 1; i < sz<int>(s); ++i) {
+    ans += s[i] == 'A' && s[i - 1] == 'B';
+  }
+  prln("{}, {}", ans, s);
 }
 
 int main() {  // {{{

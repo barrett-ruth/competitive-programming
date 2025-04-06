@@ -18,12 +18,12 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] static T sc(auto &&x) {
+[[nodiscard]] static T sc(auto&& x) {
   return static_cast<T>(x);
 }
 
 template <typename T>
-[[nodiscard]] static T sz(auto &&x) {
+[[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
 
@@ -77,10 +77,23 @@ auto ub = [](auto... args) {
 //  }}}
 
 void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
-
-  prln("{}", ceill(abs((b - a) / 2) / c));
+  int n;
+  cin >> n;
+  ve<ll> perm(n - 1);
+  int j = -1;
+  unoredered_set<int> seen;
+  set<int> seen;
+  for (int i = 0; i < n - 1; ++i) {
+    cin >> perm[i];
+    if (i) {
+      int diff = abs(perm[i] - perm[i - 1]);
+      if (diff >= n) {
+        j = i;
+      } else {
+        seen.insert(diff);
+      }
+    }
+  }
 }
 
 int main() {  // {{{

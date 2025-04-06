@@ -18,12 +18,12 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] static T sc(auto &&x) {
+[[nodiscard]] static T sc(auto&& x) {
   return static_cast<T>(x);
 }
 
 template <typename T>
-[[nodiscard]] static T sz(auto &&x) {
+[[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
 
@@ -77,10 +77,35 @@ auto ub = [](auto... args) {
 //  }}}
 
 void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
+  int n;
+  cin >> n;
+  ll l = 1, r = 1e6;
+  while (l <= r) {
+    ll m = l + (r - l) / 2;
+    if (m * (m + 1) / 2 >= n) {
+      r = m - 1;
+    } else {
+      l = m + 1;
+    }
+  }
+  auto sumsq = [](ll x) {
+    return x * (x + 1) * (2 * x + 1) / 6;
+  };
+  ll level = l;
+  ll ans = 0;
+  l = r = level - (level * (level + 1) / 2 - n) - 1;
+  while (level > 0) {
+    l = max(0LL, l);
+    r = min(r, level - 1);
 
-  prln("{}", ceill(abs((b - a) / 2) / c));
+    auto left = level * (level + 1) / 2 - level + 1;
+    ans -= sumsq(left + l - 1);
+    ans += sumsq(left + r);
+
+    --l;
+    --level;
+  }
+  prln("{}", ans);
 }
 
 int main() {  // {{{

@@ -18,12 +18,12 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] static T sc(auto &&x) {
+[[nodiscard]] static T sc(auto&& x) {
   return static_cast<T>(x);
 }
 
 template <typename T>
-[[nodiscard]] static T sz(auto &&x) {
+[[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
 
@@ -77,10 +77,27 @@ auto ub = [](auto... args) {
 //  }}}
 
 void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
+  int n;
+  cin >> n;
+  int m;
+  int s;
+  int best_both = 1e6, best_first = 1e6, best_second = 1e6;
+  for (int i = 0; i < n; ++i) {
+    cin >> m >> s;
+    if (s == 11) {
+      best_both = min(best_both, m);
+    }
+    if (s & 1) {
+      best_first = min(best_first, m);
+    }
+    if (s > 9) {
+      best_second = min(best_second, m);
+    }
+  }
 
-  prln("{}", ceill(abs((b - a) / 2) / c));
+  int ans = min(best_both, best_first + best_second);
+
+  prln("{}", ans >= 1e6 ? -1 : ans);
 }
 
 int main() {  // {{{

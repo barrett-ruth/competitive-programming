@@ -18,12 +18,12 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] static T sc(auto &&x) {
+[[nodiscard]] static T sc(auto&& x) {
   return static_cast<T>(x);
 }
 
 template <typename T>
-[[nodiscard]] static T sz(auto &&x) {
+[[nodiscard]] static T sz(auto&& x) {
   return static_cast<T>(x.size());
 }
 
@@ -76,11 +76,76 @@ auto ub = [](auto... args) {
 #define rall(x) (x).rbegin(), (x).rend()
 //  }}}
 
-void solve() {
-  ld a, b, c;
-  cin >> a >> b >> c;
+ve<pa<int, int>> dxdy = {{-1, 0}, {0, 1}, {0, -1}, {1, 0}};
 
-  prln("{}", ceill(abs((b - a) / 2) / c));
+template <typename T>
+struct union_find {
+ public:
+  explicit union_find(size_t capacity)
+      : par(capacity, 0), rank(capacity, 0), sums(capacity, 0) {
+    std::iota(par.begin(), par.end(), 0);
+  };
+
+  void join(T u, T v) noexcept {
+    u = find(u), v = find(v);
+
+    if (u == v)
+      return;
+
+    if (rank[u] < rank[v])
+      std::swap(u, v);
+
+    if (rank[u] == rank[v])
+      ++rank[u];
+
+    // NOTE the double counting + joining before collecting value in the union find
+    sums[u] += sums[v];
+
+    par[v] = u;
+  }
+
+  void insert(T const& u, T const& val) {
+    sums[u] = val;
+  }
+
+  [[nodiscard]] T find(T const& u) noexcept {
+    if (u != par[u])
+      par[u] = find(par[u]);
+    return par[u];
+  }
+
+  std::vector<T> par;
+  std::vector<int> rank;
+  std::vector<int> sums;
+};
+
+void solve() {
+  int n, m;
+  cin >> n >> m;
+  union_find<int> uf(n * m);
+  ve<ve<int>> grid(n, ve<int>(m));
+  auto index = [&](int r, int c) {
+    return r * m + c;
+  };
+  for (int r = 0; r < n; ++r) {
+    for (int c = 0; c < m; ++c) {
+      cin >> grid[r][c];
+      uf.insert(index(r, c), grid[r][c]);
+    }
+  }
+  for (int r = 0; r < n; ++r) {
+    for (int c = 0; c < m; ++c) {
+      if (grid[r][c]) {
+        for (auto& [dr, dc] : dxdy) {
+          auto nr = r + dr, nc = c + dc;
+          if (min(nr, nc) >= 0 && nr < n && nc < m && grid[nr][nc]) {
+            uf.join(index(r, c), index(nr, nc));
+          }
+        }
+      }
+    }
+  }
+  prln("{}", *max_element(all(uf.sums)));
 }
 
 int main() {  // {{{

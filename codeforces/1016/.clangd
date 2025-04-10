@@ -1,0 +1,23 @@
+CompileFlags:
+	Add:
+		- -Wall
+		- -Wextra
+		- -Wshadow
+		- -Wnon-virtual-dtor
+		- -Wold-style-cast
+		- -Wcast-align
+		- -Wunused
+		- -Woverloaded-virtual
+		- -Wpedantic
+		- -Wmisleading-indentation
+		- -Wduplicated-cond
+		- -Wduplicated-branches
+		- -Wlogical-op
+		- -Wnull-dereference
+		- -Wuseless-cast
+		- -Wformat=2
+		- -Wformat-overflow
+		- -Wformat-truncation
+		- -Wdouble-promotion
+		- -DLOCAL
+		- -Wno-unknown-pragmas

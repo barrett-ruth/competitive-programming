@@ -20,40 +20,7 @@ using namespace std;
 //  }}}
 
 void solve() {
-  int n, s;
-  cin >> n >> s;
-  vector<int> a(n);
-  int total = 0;
-  for (auto& e : a) {
-    cin >> e;
-    total += e;
-  }
-  if (total < s) {
-    cout << -1 << '\n';
-    return;
-  }
-
-  int r = n - 1;
-  int cur = 0;
-  while (cur != total - s) {
-    cur += a[r] == 1;
-    --r;
-  }
-  ++r;
-  int ans = n - r;
-  for (int l = 0; l < n; ++l) {
-    if (a[l] == 0) {
-      continue;
-    }
-    // NOTE: i wrote a while loop instead of maintaing invariant
-    ++r;
-    while (r < n && a[r] == 0) {
-      ++r;
-    }
-    ans = min(ans, l + 1 + n - r);
-  }
-
-  cout << ans << '\n';
+  
 }
 
 int main() {  // {{{

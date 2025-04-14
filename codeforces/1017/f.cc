@@ -19,27 +19,31 @@ void solve() {
   i32 n, m, k;
   cin >> n >> m >> k;
 
-  if (n > m) {
-    swap(n, m);
-  }
-
-    // 3x4 -> [1, 2 ,1, 2]
-    //        [2, 1, 2, 1]
-    //        [1, 2, 1, 2]
-
-    // if even # cols/rows -> ez (i.e. either even, swap)
-    // REDUCE: odd # cols & rows
-    // [1, 2, 3]
-    // [2, 3, 1]
-    // [3, 2, 1]
-
-
-  i32 cur = -1;
-  if (n & 1 && m & 1) {
-    cur = (cur + 1) % m;
-    for (i32 i = 0; i < n; ++i) {
-      for ()
+  vector<vector<int>> grid(n, vector<int>(m));
+  int r = 0, c = 0;
+  i32 cur = 1;
+  for (i64 i = 0; i < n * m; ++i) {
+    grid[r][c] = cur;
+    if (++cur == k + 1) {
+      cur = 1;
     }
+    if (++c == m) {
+      c = 0;
+      ++r;
+    }
+  }
+  if (m % k == 0) {
+    for (int r = 0; r < n; r += 2) {
+      for (int c = 0; c < m; ++c)
+        if (++grid[r][c] == k + 1) {
+          grid[r][c] = 1;
+        }
+    }
+  }
+  for (auto& row : grid) {
+    for (auto& cell : row)
+      cout << cell << ' ';
+    cout << endl;
   }
 }
 

@@ -1,4 +1,4 @@
 .null-ls.*
 *.debug
 *.run
-exe
+*.su

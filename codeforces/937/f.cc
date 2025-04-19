@@ -43,8 +43,7 @@ void solve() {
     to_take -= take;
 
     if (to_take != 0) {
-      cout << -1 << '\n';
-      return;
+      break;
     }
 
     to_take = next_to_take;

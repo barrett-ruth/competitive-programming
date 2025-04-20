@@ -77,6 +77,10 @@ void solve() {
   prices.erase(unique(all(prices)), prices.end());
   sort(all(a));
   sort(all(b));
+  // fundamentally cooked - thought oculd binary search over the range (this is just not tree)
+  // "pass tc = right" mindset - braindead
+  // low patience -> lack of focus (phone?) gave up on e and f, espec. when 
+  // f was doable
 
   for (i64 price : prices) {
     i64 A = n - distance(a.begin(), lower_bound(all(a), price));

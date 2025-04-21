@@ -1,0 +1,66 @@
+void solve() {
+  u32 n;
+  string s;
+  cin >> n >> s;
+
+  // Function to calculate minimum ops for alternating even-length string
+  auto calc_min_ops = [](const vec<u32>& even_count, const vec<u32>& odd_count,
+                         u32 even_positions, u32 odd_positions) -> u32 {
+    // Find most frequent characters in each position type
+    pai<u32, u32> max_even = {0, 0};  // (char, count)
+    pai<u32, u32> second_max_even = {0, 0};
+    pai<u32, u32> max_odd = {0, 0};
+    pai<u32, u32> second_max_odd = {0, 0};
+
+    for (u32 c = 0; c < 26; ++c) {
+      if (even_count[c] > max_even.second) {
+        second_max_even = max_even;
+        max_even = {c, even_count[c]};
+      } else if (even_count[c] > second_max_even.second) {
+        second_max_even = {c, even_count[c]};
+      }
+
+      if (odd_count[c] > max_odd.second) {
+        second_max_odd = max_odd;
+        max_odd = {c, odd_count[c]};
+      } else if (odd_count[c] > second_max_odd.second) {
+        second_max_odd = {c, odd_count[c]};
+      }
+    }
+
+    u32 option1 =
+        (even_positions - max_even.second) + (odd_positions - max_odd.second);
+    u32 option2 = MAX<u32>;
+    if (max_even.first != max_odd.first) {
+      option2 = (even_positions - even_count[max_odd.first]) +
+                (odd_positions - odd_count[max_even.first]);
+    } else {
+      // Try second-best for one position type
+      u32 sub_option1 = (even_positions - second_max_even.second) +
+                        (odd_positions - max_odd.second);
+      u32 sub_option2 = (even_positions - max_even.second) +
+                        (odd_positions - second_max_odd.second);
+      option2 = min(sub_option1, sub_option2);
+    }
+
+    return min(option1, option2);
+  };
+
+  if (n % 2 == 0) {
+    // Even length case
+    vec<u32> even_count(26, 0);
+    vec<u32> odd_count(26, 0);
+
+    for (u32 i = 0; i < n; ++i) {
+      if (i % 2 == 0) {
+        even_count[s[i] - 'a']++;
+      } else {
+        odd_count[s[i] - 'a']++;
+      }
+    }
+
+    cout << calc_min_ops(even_count, odd_count, n / 2, n / 2) << '\n';
+  } else {
+    // O(n) - use suffix?
+  }
+}

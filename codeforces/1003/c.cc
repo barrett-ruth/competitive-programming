@@ -76,13 +76,9 @@ void solve() {
 
   a[0] = min(a[0], x - a[0]);
   for (int i = 1; i < n; ++i) {
-    if (a[i] >= a[i - 1] && x - a[i] >= a[i - 1]) {
+    if (x - a[i] >= a[i - 1]) {
       a[i] = min(a[i], x - a[i]);
-    } else if (a[i] >= a[i - 1]) {
-      ;
-    } else if (x - a[i] >= a[i - 1]) {
-      a[i] = x - a[i];
-    } else {
+    } else if (a[i] < a[i - 1]) {
       prln("NO");
       return;
     }

@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>  // {{{
+#include <bits/stdc++.h> // {{{
 
 // https://codeforces.com/blog/entry/96344
 
@@ -13,6 +13,24 @@ using i64 = int64_t;
 using u64 = uint64_t;
 using f64 = double;
 using f128 = long double;
+
+#if __cplusplus >= 202002L
+template <typename T> constexpr T MIN = std::numeric_limits<T>::min();
+
+template <typename T> constexpr T MAX = std::numeric_limits<T>::max();
+
+template <typename T> [[nodiscard]] static T sc(auto &&x) {
+  return static_cast<T>(x);
+}
+
+template <typename T> [[nodiscard]] static T sz(auto &&x) {
+  return static_cast<T>(x.size());
+}
+#endif
+
+static void NO() { std::cout << "NO\n"; }
+
+static void YES() { std::cout << "YES\n"; }
 
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
@@ -31,36 +49,22 @@ using f128 = long double;
 void solve() {
   u32 n;
   cin >> n;
-  vector<u64> a(n);
-  for (auto& e : a)
+  vector<u32> a(n);
+  for (auto &e : a)
     cin >> e;
+  sort(all(a));
 
-  // auto dfs = [&](u32 i, u64 s1, auto&& self) -> u64 {
-  //   if (i == n) {
-  //     return max(s1, s2) - min(s1, s2);
-  //   }
-  //
-  //   return min(self(i + 1, s1 + a[i], self),
-  //              self(i + 1, s1,self));
-  // };
-  //
-  // cout << dfs(0, 0, dfs) << '\n';
-
-  u64 total = accumulate(all(a), 0LL);
-  u64 ans = total;
-  for (u64 mask = 0; mask < (1LL << n); ++mask) {
-    u64 sum = 0;
-    for (u64 bit = 0; bit < n; ++bit) {
-      if (mask & (1LL << bit)) {
-        sum += a[bit];
-      }
-    }
-    ans = min(ans, max(total - sum, sum) - min(total - sum, sum));
+  u32 ans = 0;
+  for (u32 i = 0; i < n;) {
+    ++ans;
+    while (i + 1 < n && a[i + 1] == a[i])
+      ++i;
+    ++i;
   }
-  cout << ans << '\n';
+  cout << ans << endl;
 }
 
-int main() {  // {{{
+int main() { // {{{
   cin.tie(nullptr)->sync_with_stdio(false);
   cin.exceptions(cin.failbit);
 

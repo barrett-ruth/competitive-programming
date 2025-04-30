@@ -5,4 +5,4 @@ CompileFlags:
 		- -Wpedantic
 		- -Wshadow
 		- -DLOCAL
-		- -Wno-unknown-pragmas
+		- -Wno-unknown-pragmas		-std=c++23

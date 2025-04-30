@@ -27,4 +27,4 @@
 -Wdouble-promotion
 -Wundef
 -DLOCAL
--std=c++23
+-std=c++17

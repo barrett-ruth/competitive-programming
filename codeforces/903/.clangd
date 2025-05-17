@@ -32,7 +32,14 @@ CompileFlags:
 		-DLOCAL
 		-Wno-unknown-pragmas
 		-std=c++23
-		-std=c++17
-		-std=c++17
-		-std=c++17
-		-std=c++17
+		-std=c++20
+		-std=c++23
+		-std=c++23
+		-std=c++23
+		-std=c++23
+		-std=c++23
+		-std=c++23
+		-std=c++23
+		-std=c++23
+		-std=c++23
+		-std=c++23

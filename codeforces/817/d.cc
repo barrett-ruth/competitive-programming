@@ -58,16 +58,45 @@ using vec = std::vector<T>;
 //  }}}
 
 void solve() {
+  u32 n;
+  cin >> n;
   string s;
-  for (u32 i = 0; i < 8; ++i) {
-    cin >> s;
-    if (s == "RRRRRRRR") {
-      cout << "R\n";
-      return;
+  cin >> s;
+
+  vec<u64> deltas;
+  u64 initial_value = 0;
+  for (u32 i = 0; i < n; ++i) {
+    if (s[i] == 'L') {
+      u64 dont = i;
+      initial_value += dont;
+      u64 turn = n - i - 1;
+
+      if (turn > dont) {
+        deltas.emplace_back(turn - dont);
+      }
+    } else {
+      u64 dont = n - i - 1;
+      initial_value += dont;
+      u64 turn = i;
+
+      if (turn > dont) {
+        deltas.emplace_back(turn - dont);
+      }
     }
   }
 
-  cout << "B\n";
+  sort(rall(deltas));
+
+  u32 i = 0;
+  u64 total = initial_value;
+  for (u32 k = 1; k <= n; ++k) {
+    if (i < deltas.size()) {
+      total += deltas[i];
+      ++i;
+    }
+
+    cout << total << " \n"[k == n];
+  }
 }
 
 int main() {  // {{{

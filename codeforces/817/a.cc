@@ -58,16 +58,34 @@ using vec = std::vector<T>;
 //  }}}
 
 void solve() {
+  u32 n;
+  cin >> n;
   string s;
-  for (u32 i = 0; i < 8; ++i) {
-    cin >> s;
-    if (s == "RRRRRRRR") {
-      cout << "R\n";
-      return;
-    }
+  cin >> s;
+
+  sort(all(s));
+  string timur = "Timur";
+  sort(all(timur));
+
+  if (n != timur.size()) {
+    NO();
+    return;
   }
 
-  cout << "B\n";
+  for (u32 i = 0; i < n; ++i) {
+    if (s[i] == 'T') {
+      if (timur[i] != 'T') {
+        NO();
+        return;
+      }
+    } else {
+      if (s[i] != timur[i]) {
+        NO();
+        return;
+      }
+    }
+  }
+  YES();
 }
 
 int main() {  // {{{

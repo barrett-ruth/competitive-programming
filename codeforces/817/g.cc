@@ -58,16 +58,40 @@ using vec = std::vector<T>;
 //  }}}
 
 void solve() {
-  string s;
-  for (u32 i = 0; i < 8; ++i) {
-    cin >> s;
-    if (s == "RRRRRRRR") {
-      cout << "R\n";
-      return;
-    }
+  u32 n;
+  cin >> n;
+
+  vec<u32> a(n);
+  for (u32 i = 0; i < n; i += 2) a[i] = i >> 1;
+
+  u32 xe = 0;
+  for (u32 i = 0; i < n; i += 2) xe ^= a[i];
+
+  u32 odd = n >> 1;
+  if (!odd) {
+    for (u32 i = 0; i < n; ++i) cout << a[i] << " \n"[i == n - 1];
+    return;
   }
 
-  cout << "B\n";
+  const u32 BIG = 1u << 20;
+  u32 xo = 0;
+  for (u32 k = 0; k + 2 < odd; ++k) {
+    a[1 + 2 * k] = BIG + k;
+    xo ^= a[1 + 2 * k];
+  }
+
+  if (odd == 1) {
+    a[1] = BIG;
+    a[0] ^= xe ^ BIG;
+  } else {
+    u32 diff = xe ^ xo;
+    u32 p = BIG + odd - 2;
+    a[2 * odd - 3] = p;
+    a[2 * odd - 1] = p ^ diff;
+  }
+
+  for (u32 i = 0; i < n; ++i)
+    cout << a[i] << " \n"[i == n - 1];
 }
 
 int main() {  // {{{

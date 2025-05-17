@@ -58,16 +58,20 @@ using vec = std::vector<T>;
 //  }}}
 
 void solve() {
-  string s;
-  for (u32 i = 0; i < 8; ++i) {
-    cin >> s;
-    if (s == "RRRRRRRR") {
-      cout << "R\n";
-      return;
-    }
-  }
+  u32 n;
+  cin >> n;
+  string a, b;
+  cin >> a >> b;
 
-  cout << "B\n";
+  for (u32 i = 0; i < n; ++i) {
+    if (a[i] == b[i] ||
+        (a[i] == 'G' || a[i] == 'B') && (b[i] == 'G' || b[i] == 'B')) {
+      continue;
+    }
+    NO();
+    return;
+  }
+  YES();
 }
 
 int main() {  // {{{

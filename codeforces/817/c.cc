@@ -58,16 +58,33 @@ using vec = std::vector<T>;
 //  }}}
 
 void solve() {
-  string s;
-  for (u32 i = 0; i < 8; ++i) {
-    cin >> s;
-    if (s == "RRRRRRRR") {
-      cout << "R\n";
-      return;
+  u32 n;
+  cin >> n;
+
+  vec<set<string>> words(3);
+  map<string, u32> count;
+
+  string word;
+  for (u32 i = 0; i < 3; ++i) {
+    for (u32 j = 0; j < n; ++j) {
+      cin >> word;
+      words[i].insert(word);
+      ++count[word];
     }
   }
 
-  cout << "B\n";
+  for (u32 i = 0; i < 3; ++i) {
+    u32 points = 0;
+    for (auto& w : words[i]) {
+      u32 x = (u32)words[0].contains(w) + words[1].contains(w) +
+              words[2].contains(w);
+      if (x == 2)
+        ++points;
+      else if (x == 1)
+        points += 3;
+    }
+    cout << points << " \n"[i == 2];
+  }
 }
 
 int main() {  // {{{

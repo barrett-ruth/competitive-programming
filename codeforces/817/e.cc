@@ -58,16 +58,31 @@ using vec = std::vector<T>;
 //  }}}
 
 void solve() {
-  string s;
-  for (u32 i = 0; i < 8; ++i) {
-    cin >> s;
-    if (s == "RRRRRRRR") {
-      cout << "R\n";
-      return;
-    }
+  u32 n, q;
+  cin >> n >> q;
+
+  vec<vec<u64>> prefix(1000 + 1, vec<u64>(1000 + 1, 0));
+
+  for (u32 i = 0; i < n; ++i) {
+    u64 h, w;
+    cin >> h >> w;
+    prefix[h][w] += h * w;
   }
 
-  cout << "B\n";
+  for (u32 i = 1; i <= 1000; ++i)
+    for (u32 j = 1; j <= 1000; ++j)
+      prefix[i][j] +=
+          prefix[i - 1][j] + prefix[i][j - 1] - prefix[i - 1][j - 1];
+
+  for (u32 i = 0; i < q; ++i) {
+    u32 hs, ws, hb, wb;
+    cin >> hs >> ws >> hb >> wb;
+
+    u64 ans = prefix[hb - 1][wb - 1] - prefix[hs][wb - 1] - prefix[hb - 1][ws] +
+              prefix[hs][ws];
+
+    cout << ans << '\n';
+  }
 }
 
 int main() {  // {{{

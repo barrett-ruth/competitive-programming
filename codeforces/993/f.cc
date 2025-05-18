@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <bits/stdc++.h>  // {{{
 
 // https://codeforces.com/blog/entry/96344
 
@@ -7,214 +7,134 @@
 
 using namespace std;
 
-template <typename... Args>
-void dbg(std::string const &str, Args &&...args) {
-  std::cout << std::vformat(str,
-                            // make_format_args binds arguments to const
-                            std::make_format_args(args...));
+using i32 = int32_t;
+using u32 = uint32_t;
+using i64 = int64_t;
+using u64 = uint64_t;
+using f64 = double;
+using f128 = long double;
+
+#if __cplusplus >= 202002L
+template <typename T>
+constexpr T MIN = std::numeric_limits<T>::min();
+
+template <typename T>
+constexpr T MAX = std::numeric_limits<T>::max();
+
+template <typename T>
+[[nodiscard]] static T sc(auto&& x) {
+  return static_cast<T>(x);
 }
 
 template <typename T>
-void dbg(T const &t) {
-  std::cout << t;
+[[nodiscard]] static T sz(auto&& x) {
+  return static_cast<T>(x.size());
+}
+#endif
+
+static void NO() {
+  std::cout << "NO\n";
 }
 
-template <std::ranges::range T>
-void dbgln(T const &t) {
-  if constexpr (std::is_convertible_v<T, char const *>) {
-    std::cout << t << '\n';
-  } else {
-    for (auto const &e : t) {
-      std::cout << e << ' ';
-    }
-    std::cout << '\n';
-  }
-}
-
-template <typename... Args>
-void dbgln(std::string const &str, Args &&...args) {
-  dbg(str, std::forward<Args>(args)...);
-  cout << '\n';
+static void YES() {
+  std::cout << "YES\n";
 }
 
 template <typename T>
-void dbgln(T const &t) {
-  dbg("{}\n", t);
-}
-
-void println() {
-  std::cout << '\n';
-}
-
-template <typename T>
-constexpr auto MIN = std::numeric_limits<T>::min();
-
-template <typename T>
-constexpr auto MAX = std::numeric_limits<T>::min();
-
-#define ff first
-#define ss second
-#define eb emplace_back
-#define ll long long
-#define ld long double
-#define vec vector
+using vec = std::vector<T>;
 
 #define all(x) (x).begin(), (x).end()
-#define rall(x) (r).rbegin(), (x).rend()
-#define sz(x) static_cast<int>((x).size())
-#define FOR(a, b, c) for (int a = b; a < c; ++a)
+#define rall(x) (x).rbegin(), (x).rend()
+#define ff first
+#define ss second
 
-std::random_device rd;
-std::mt19937 gen(rd());
-
-void YES() {
-  cout << "YES\n";
-}
-
-void NO() {
-  cout << "NO\n";
-}
-
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
-using namespace __gnu_pbds;
-
-// https://mirror.codeforces.com/blog/entry/124683
-
-namespace hashing {
-using i64 = std::int64_t;
-using u64 = std::uint64_t;
-static const u64 FIXED_RANDOM =
-    std::chrono::steady_clock::now().time_since_epoch().count();
-
-#if USE_AES
-std::mt19937 rd(FIXED_RANDOM);
-const __m128i KEY1{(i64)rd(), (i64)rd()};
-const __m128i KEY2{(i64)rd(), (i64)rd()};
-#endif
-
-template <class T, class D = void>
-struct custom_hash {};
-
-template <class T>
-inline void hash_combine(u64 &seed, T const &v) {
-  custom_hash<T> hasher;
-  seed ^= hasher(v) + 0x9e3779b97f4a7c15 + (seed << 12) + (seed >> 4);
-};
-
-template <class T>
-struct custom_hash<T,
-                   typename std::enable_if<std::is_integral<T>::value>::type> {
-  u64 operator()(T _x) const {
-    u64 x = _x;
-#if USE_AES
-    __m128i m{i64(u64(x) * 0xbf58476d1ce4e5b9u64), (i64)FIXED_RANDOM};
-    __m128i y = _mm_aesenc_si128(m, KEY1);
-    __m128i z = _mm_aesenc_si128(y, KEY2);
-    return z[0];
+#ifdef LOCAL
+#define db(...) std::print(__VA_ARGS__)
+#define dbln(...) std::println(__VA_ARGS__)
 #else
-    x += 0x9e3779b97f4a7c15 + FIXED_RANDOM;
-    x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
-    x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
-    return x ^ (x >> 31);
+#define db(...)
+#define dbln(...)
 #endif
-  }
-};
-
-template <class T>
-struct custom_hash<T, std::void_t<decltype(std::begin(std::declval<T>()))>> {
-  u64 operator()(T const &a) const {
-    u64 value = FIXED_RANDOM;
-    for (auto &x : a)
-      hash_combine(value, x);
-    return value;
-  }
-};
-
-template <class... T>
-struct custom_hash<std::tuple<T...>> {
-  u64 operator()(const std::tuple<T...> &a) const {
-    u64 value = FIXED_RANDOM;
-    std::apply(
-        [&value](T const &...args) {
-          (hash_combine(value, args), ...);
-        },
-        a);
-    return value;
-  }
-};
-
-template <class T, class U>
-struct custom_hash<std::pair<T, U>> {
-  u64 operator()(std::pair<T, U> const &a) const {
-    u64 value = FIXED_RANDOM;
-    hash_combine(value, a.first);
-    hash_combine(value, a.second);
-    return value;
-  }
-};
-};  // namespace hashing
-
-#ifdef PB_DS_ASSOC_CNTNR_HPP
-template <class Key, class Value>
-using hashmap = gp_hash_table<
-    Key, Value, hashing::custom_hash<Key>, std::equal_to<Key>,
-    direct_mask_range_hashing<>, linear_probe_fn<>,
-    hash_standard_resize_policy<hash_exponential_size_policy<>,
-                                hash_load_check_resize_trigger<>, true>>;
-template <class Key>
-using hashset = gp_hash_table<
-    Key, null_type, hashing::custom_hash<Key>, std::equal_to<Key>,
-    direct_mask_range_hashing<>, linear_probe_fn<>,
-    hash_standard_resize_policy<hash_exponential_size_policy<>,
-                                hash_load_check_resize_trigger<>, true>>;
-
-#endif
-#ifdef PB_DS_TREE_POLICY_HPP
-template <typename T>
-using multiset = tree<T, null_type, std::less_equal<T>, rb_tree_tag,
-                      tree_order_statistics_node_update>;
-template <class Key, class Value = null_type>
-using rbtree = tree<Key, Value, std::less<Key>, rb_tree_tag,
-                    tree_order_statistics_node_update>;
-#endif
+//  }}}
 
 void solve() {
-  int n, m, q;
+  const int LIM = 2 * 1e5;
+  bitset<LIM + 1> Apos, Aneg, Bpos, Bneg;
+  Apos.reset();
+  Aneg.reset();
+  Bpos.reset();
+  Bneg.reset();
+
+  /* ---------- read input & build bitsets ---------- */
+  u32 n, m, q;
   cin >> n >> m >> q;
-  dbgln("{} {} {}", n, m, q);
-  vec<ll> a(n), b(m);
-  for (auto &e : a)
-    cin >> e;
-  for (auto &e : b)
-    cin >> e;
 
-  ll bprod = accumulate(all(b), 1, multiplies<int>());
-  ll total = n * bprod + accumulate(all(a), 0LL);
-
-  hashset<ll> hm;
-
-  FOR(i, 0, n) {
-    FOR(j, 0, m) {
-      hm.insert(total - n * b[j] - m * a[i] + a[i] * b[j]);
-    }
+  vector<i64> a(n), b(m);
+  i64 A = 0, B = 0;
+  for (u32 i = 0; i < n; ++i) {
+    cin >> a[i];
+    A += a[i];
+  }
+  for (u32 i = 0; i < m; ++i) {
+    cin >> b[i];
+    B += b[i];
   }
 
-  while (q--) {
+  auto add_term = [](i64 t, bitset<LIM + 1>& pos, bitset<LIM + 1>& neg) {
+    if (t == 0 || abs(t) > LIM)
+      return;
+    (t > 0 ? pos : neg).set(abs(t));
+  };
+
+  for (u32 i = 0; i < n; ++i)
+    add_term(A - a[i], Apos, Aneg);
+  for (u32 i = 0; i < m; ++i)
+    add_term(B - b[i], Bpos, Bneg);
+
+  vec<vec<u32>> div(LIM + 1);
+  for (int d = 1; d <= LIM; ++d)
+    for (int v = d; v <= LIM; v += d)
+      div[v].push_back(d);
+
+  for (u32 _ = 0; _ < q; ++_) {
     int x;
     cin >> x;
-    if (hm.find(x) != hm.end())
-      YES();
-    else
-      NO();
+    int y = abs(x);
+    bool good = false;
+
+    for (int d : div[y]) {
+      int e = y / d;
+
+      if (x > 0) {
+        if ((Apos[d] && Bpos[e]) || (Apos[e] && Bpos[d]) ||
+            (Aneg[d] && Bneg[e]) || (Aneg[e] && Bneg[d])) {
+          good = true;
+          break;
+        }
+      } else {
+        if ((Apos[d] && Bneg[e]) || (Apos[e] && Bneg[d]) ||
+            (Aneg[d] && Bpos[e]) || (Aneg[e] && Bpos[d])) {
+          good = true;
+          break;
+        }
+      }
+    }
+
+    good ? YES() : NO();
   }
 }
 
-int main() {
+int main() {  // {{{
   cin.tie(nullptr)->sync_with_stdio(false);
+  cin.exceptions(cin.failbit);
 
+  u32 tc = 1;
+  // cin >> tc;
+
+  for (u32 t = 0; t < tc; ++t) {
     solve();
+  }
 
   return 0;
 }
+// }}}

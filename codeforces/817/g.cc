@@ -61,37 +61,36 @@ void solve() {
   u32 n;
   cin >> n;
 
-  vec<u32> a(n);
-  for (u32 i = 0; i < n; i += 2) a[i] = i >> 1;
-
-  u32 xe = 0;
-  for (u32 i = 0; i < n; i += 2) xe ^= a[i];
-
-  u32 odd = n >> 1;
-  if (!odd) {
-    for (u32 i = 0; i < n; ++i) cout << a[i] << " \n"[i == n - 1];
+  if (n == 3) {
+    cout << "1 2 3\n";
     return;
   }
 
-  const u32 BIG = 1u << 20;
-  u32 xo = 0;
-  for (u32 k = 0; k + 2 < odd; ++k) {
-    a[1 + 2 * k] = BIG + k;
-    xo ^= a[1 + 2 * k];
+  vec<u32> a(n, 0);
+
+  u32 odd_slots = n / 2;
+  u32 even_slots = ceil(n / 2.0);
+
+  for (u32 i = 0; i < n; i += 2) {
+    a[i] = i / 2 + 1;
+    if (i + 1 < n)
+      a[i + 1] = a[i] | ((u32)1 << 30);
   }
 
-  if (odd == 1) {
-    a[1] = BIG;
-    a[0] ^= xe ^ BIG;
-  } else {
-    u32 diff = xe ^ xo;
-    u32 p = BIG + odd - 2;
-    a[2 * odd - 3] = p;
-    a[2 * odd - 1] = p ^ diff;
+  if (n & 1) {
+    a[n - 1] = 0;
   }
 
-  for (u32 i = 0; i < n; ++i)
+  if (odd_slots & 1) {
+    a[odd_slots * 2 - 3] ^= a[odd_slots * 2 - 1];
+    a[odd_slots * 2 - 1] = (u32)1 << 29;
+    a[odd_slots * 2 - 3] |= (u32)1 << 29;
+    a[odd_slots * 2 - 3] |= (u32)1 << 30;
+  }
+
+  for (u32 i = 0; i < n; ++i) {
     cout << a[i] << " \n"[i == n - 1];
+  }
 }
 
 int main() {  // {{{

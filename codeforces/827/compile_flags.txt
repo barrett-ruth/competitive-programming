@@ -27,4 +27,5 @@
 -Wdouble-promotion
 -Wundef
 -DLOCAL
+-godbolt-compiler=g143
 -std=c++23

@@ -57,6 +57,12 @@ using vec = std::vector<T>;
 #endif
 //  }}}
 
+struct S{
+  void method() {
+
+  }
+};
+
 void solve() {
   /*
      a[i] has factors S, |S| < = log2(MAX_A[i] = 1000)

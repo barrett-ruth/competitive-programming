@@ -32,3 +32,7 @@ CompileFlags:
 		-DLOCAL
 		-std=c++20
 		-Wno-unknown-pragmas
+		-std=c++23
+		-std=c++23
+		-std=c++23
+		-std=c++23

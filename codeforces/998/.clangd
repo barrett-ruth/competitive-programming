@@ -5,4 +5,5 @@ CompileFlags:
 		- -Wextra
 		- -Wpedantic
 		- -Wshadow
-		- -Wno-unknown-pragmas
+		- -Wno-unknown-pragmas		-std=c++23
+		-std=c++23

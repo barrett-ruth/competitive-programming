@@ -20,7 +20,7 @@ void solve() {
   cin >> _;
   string s;
   cin >> s;
-  i32 ans = 1;
+  i32 ans = 2;
   for (auto c : s) {
     ans = max(ans, c - 'a' + 1);
   }

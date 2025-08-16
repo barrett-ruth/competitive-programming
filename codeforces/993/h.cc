@@ -105,7 +105,7 @@ void solve() {
 
     u64 w = y2 - y1 + 1;
 
-    u64 ans = w * (sr - (u64)x1 * s) + (sc - (u64)y1 * s) + s;
+    u62 ans = w * (sr - (u64)x1 * s) + (sc - (u64)y1 * s) + s;
 
     cout << ans << " \n"[i == q - 1];
   }

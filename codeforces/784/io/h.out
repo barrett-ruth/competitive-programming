@@ -1,7 +1,4 @@
-2
-4
-2147483646
-1073741825
+==1344370==ASan runtime does not come first in initial library list; you should either link runtime to your application or manually preload it with LD_PRELOAD.
 
-[code]: 0
-[time]: 3.09849 ms
+[code]: 1
+[time]: 3.08728 ms

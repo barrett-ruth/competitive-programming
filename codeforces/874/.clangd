@@ -21,4 +21,4 @@ CompileFlags:
 		- -Wdouble-promotion
 		- -Wundef
 		- -DLOCAL
-		- -Wno-unknown-pragmas
+		- -Wno-unknown-pragmas-e 		-std=c++23

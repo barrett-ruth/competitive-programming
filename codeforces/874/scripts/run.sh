@@ -6,7 +6,7 @@ SRC="$1"
 BASE=$(basename "$SRC" .cc)
 INPUT="${BASE}.in"
 OUTPUT="${BASE}.out"
-DBG_BIN="${BASE}.debug"
+RUN_BIN="${BASE}.run"
 
 test -d build || mkdir -p build
 test -d io || mkdir -p io
@@ -19,11 +19,11 @@ test -f "io/$OUTPUT" || touch "io/$OUTPUT"
 
 INPUT="io/$INPUT"
 OUTPUT="io/$OUTPUT"
-DBG_BIN="build/$DBG_BIN"
+RUN_BIN="build/$RUN_BIN"
 
-compile_source "$SRC" "$DBG_BIN" "$OUTPUT" @debug_flags.txt
+compile_source "$SRC" "$RUN_BIN" "$OUTPUT" ""
 CODE=$?
 test $CODE -gt 0 && exit $CODE
 
-execute_binary "$DBG_BIN" "$INPUT" "$OUTPUT" true
+execute_binary "$RUN_BIN" "$INPUT" "$OUTPUT"
 exit $?

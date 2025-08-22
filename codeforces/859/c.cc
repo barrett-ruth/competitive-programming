@@ -82,6 +82,9 @@ void solve() {
   string s;
   cin >> s;
   ve<int> last(26, -1);
+  for (uint32_t j = 1; j > -1; ++j) {
+
+  }
   for (int i = 0; i < n; ++i) {
     int x = s[i] - 'a';
     if (last[x] != -1) {

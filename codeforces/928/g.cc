@@ -67,26 +67,36 @@ void solve() {
     tree[i].push_back(a);
     tree[a].push_back(i);
   }
+
   string s;
   cin >> s;
   s = ' ' + s;
 
-  auto dfs = [&](auto&& self, u32 u, u32 p) -> vec<u32> {
-    vec<u32> dp(2);
-    dp[0] = (s[u] == 'P') ? 1 << 30 : 0;
-    dp[1] = (s[u] == 'S') ? 1 << 30 : 0;
+  vec<vec<u32>> dp(n + 1, vec<u32>(2));
+
+  auto dfs = [&](auto&& self, u32 u, u32 p) -> void {
+    u32 sleepCost = (s[u] == 'P') ? MAX<u64> : 0;
+    u32 partyCost = (s[u] == 'S') ? MAX<u64> : 0;
+
     for (u32 v : tree[u]) {
-      if (v == p)
+      if (v == p) {
         continue;
-      auto prev = self(self, v, u);
-      dp[0] += min(prev[0], prev[1] + 1);
-      dp[1] += min(prev[1], prev[0] + 1);
+      }
+
+      self(self, v, u);
+      u32 bestChild = min(dp[v][0], dp[v][1]);
+      u32 cutCost = (bestChild == MAX<u64>) ? MAX<u64> : bestChild + 1;
+
+      sleepCost += min(dp[v][0], cutCost);
+      partyCost += min(dp[v][1], cutCost);
     }
-    return dp;
+
+    dp[u][0] = sleepCost;
+    dp[u][1] = partyCost;
   };
 
-  auto ans = dfs(dfs, 1, 0);
-  cout << *min_element(all(ans)) << '\n';
+  dfs(dfs, 1, 0);
+  cout << *min_element(all(dp[1])) << '\n';
 }
 
 int main() {  // {{{

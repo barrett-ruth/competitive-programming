@@ -31,20 +31,8 @@ CompileFlags:
 		-Wundef
 		-DLOCAL
 		-Wno-unknown-pragmas
--e 		-std=c++20
 -e 		-std=c++23
 -e 		-std=c++23
--e 		-std=c++20
--e 		-std=c++20
--e 		-std=c++20
--e 		-std=c++20
--e 		-std=c++20
--e 		-std=c++20
--e 		-std=c++20
--e 		-std=c++20
 -e 		-std=c++23
--e 		-std=c++20
--e 		-std=c++20
--e 		-std=c++20
--e 		-std=c++20
--e 		-std=c++20
+-e 		-std=c++23
+-e 		-std=c++23

@@ -14,6 +14,8 @@ namespace rs = std::ranges;
 
 using namespace std;
 
+using i16 = int16_t;
+using u16 = uint16_t;
 using i32 = int32_t;
 using u32 = uint32_t;
 using i64 = int64_t;
@@ -56,22 +58,9 @@ template <typename T> using vec = std::vector<T>;
 //  }}}
 
 void solve() {
-  u32 n, a, b;
-  cin >> n >> a >> b;
-
-  string ans(n, 'a');
-
-  char c = 'a';
-  for (u32 i = a - 1, count = 0; count < b; ++count, --i) {
-    ans[i] = c;
-    ++c;
-  }
-
-  for (u32 i = a; i < n; ++i) {
-    ans[i] = ans[i - b];
-  }
-
-  println("{}", ans);
+  u32 a, b, c;
+  cin >> a >> b >> c;
+  YES();
 }
 
 int main() { // {{{
@@ -85,12 +74,7 @@ int main() { // {{{
   std::cin.tie(nullptr)->sync_with_stdio(false);
 #endif
 
-  u32 tc = 1;
-  std::cin >> tc;
-
-  for (u32 t = 0; t < tc; ++t) {
-    solve();
-  }
+  solve();
 
   return 0;
 }

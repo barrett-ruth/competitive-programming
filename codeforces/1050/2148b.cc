@@ -68,7 +68,7 @@ void solve() {
   for (auto &e : vert)
     cin >> e;
 
-  println("{}", n + m);
+  println("{}", m + n);
 }
 
 int main() { // {{{

@@ -14,6 +14,8 @@ namespace rs = std::ranges;
 
 using namespace std;
 
+using i16 = int16_t;
+using u16 = uint16_t;
 using i32 = int32_t;
 using u32 = uint32_t;
 using i64 = int64_t;
@@ -56,13 +58,45 @@ template <typename T> using vec = std::vector<T>;
 //  }}}
 
 void solve() {
-  u32 n;
+  u32 n, k;
   cin >> n;
-  vec<u32> a(n);
-  for (auto &e : a)
-    cin >> e;
 
-  cout << "hi\n";
+  vec<vec<u32>> a(n);
+  u32 maxlen = 0;
+  for (u32 i = 0; i < n; ++i) {
+    cin >> k;
+    a[i].resize(k);
+    for (u32 j = 0; j < k; ++j) {
+      cin >> a[i][j];
+    }
+    maxlen = max(maxlen, k);
+  }
+
+  sort(all(a),
+       [](auto const &A, auto const &B) { return A.size() < B.size(); });
+
+  u32 index = 0;
+  for (u32 i = 0; i < maxlen;) {
+    while (i >= a[index].size()) {
+      ++index;
+    }
+
+    u32 best = index;
+    for (u32 j = index + 1; j < n; ++j) {
+      if (lexicographical_compare(a[j].begin() + i, a[j].end(),
+                                  a[best].begin() + i, a[best].end())) {
+        best = j;
+      }
+    }
+
+    for (u32 j = i; j < a[best].size(); ++j) {
+      cout << a[best][j] << ' ';
+    }
+
+    i = a[best].size();
+  }
+
+  cout << '\n';
 }
 
 int main() { // {{{

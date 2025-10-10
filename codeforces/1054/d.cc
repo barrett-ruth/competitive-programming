@@ -38,38 +38,36 @@ template <typename T> constexpr T MAX = std::numeric_limits<T>::max();
 #endif
 //  }}}
 
-bitset<2 * 100000> seen;
 void solve() {
-  seen.reset();
-  u32 n, k;
-  cin >> n >> k;
-  string s, t;
-  cin >> s >> t;
+  u32 n;
+  string s;
+  cin >> n >> s;
 
-  u32 ans = 0;
-  vector<u32> f(26, 0);
+  u64 ans = MAX<u64>;
 
-  auto dfs = [&](auto &&self, i32 i) -> void {
-    if (i < 0 || i >= n || seen[i])
-      return;
-    seen[i] = true;
-    ++f[s[i] - 'a'];
-    --f[t[i] - 'a'];
-    for (auto d : {i - k, i - k - 1, i + k, i + k + 1}) {
-      self(self, d);
-    }
+  auto f = [&](string &t) {
+    vector<u64> pos;
+    for (u64 i = 0; i < n; i++)
+      if (t[i] == 'a')
+        pos.push_back(i);
+    u64 m = pos.size();
+
+    vector<u64> pref(m + 1), suff(m + 1);
+    for (u64 i = 0; i < m; i++)
+      pref[i + 1] = pref[i] + pos[i] - i;
+    for (u64 i = m; i--;)
+      suff[i] = suff[i + 1] + (n - (m - i)) - pos[i];
+
+    for (u64 i = 0; i <= m; i++)
+      ans = min<u64>(ans, pref[i] + suff[i]);
   };
 
-  bool ok = true;
-  for (i32 i = 0; i < n && ok; ++i) {
-    if (!seen[i]) {
-      dfs(dfs, i);
-      ok &= count(f.begin(), f.end(), 0) == 26;
-      f.assign(26, 0);
-    }
-  }
+  f(s);
+  transform(s.begin(), s.end(), s.begin(),
+            [](char c) { return c ^ 'a' ^ 'b'; });
+  f(s);
 
-  cout << (ok ? "YES" : "NO") << '\n';
+  cout << ans << '\n';
 }
 
 int main() { // {{{

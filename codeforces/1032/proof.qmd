@@ -1,8 +1,0 @@
-# hello
-
-
-l, r <= 10^9
-
-so ~ 10^9 candidates
-
-minimize the digit xor

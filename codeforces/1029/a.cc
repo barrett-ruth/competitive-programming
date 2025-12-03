@@ -74,7 +74,6 @@ void solve() {
       ++since;
     if (since > x && door == 1)
       ok = false;
--std=c++23
   }
 
   if (ok) {

@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>  // {{{
+#include <bits/stdc++.h> // {{{
 
 #include <version>
 #ifdef __cpp_lib_ranges_enumerate
@@ -22,11 +22,9 @@ using f64 = double;
 using f128 = long double;
 
 #if __cplusplus >= 202002L
-template <typename T>
-constexpr T MIN = std::numeric_limits<T>::min();
+template <typename T> constexpr T MIN = std::numeric_limits<T>::min();
 
-template <typename T>
-constexpr T MAX = std::numeric_limits<T>::max();
+template <typename T> constexpr T MAX = std::numeric_limits<T>::max();
 #endif
 
 #ifdef LOCAL
@@ -41,10 +39,10 @@ constexpr T MAX = std::numeric_limits<T>::max();
 void solve() {
   u32 n;
   cin >> n;
-  println("{}", n == 3 ? 0 : 1);
+  println("{}", u32((n % 4 % 3) > 0));
 }
 
-int main() {  // {{{
+int main() { // {{{
   std::cin.exceptions(std::cin.failbit);
 #ifdef LOCAL
   std::cerr.rdbuf(std::cout.rdbuf());

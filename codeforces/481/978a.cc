@@ -55,7 +55,7 @@ void solve() {
     }
   }
   println("{}", n - write);
-  for (u32 i = write; ++i) {
+  for (u32 i = write; i < n; ++i) {
     print("{} ", a[i]);
   }
   println();

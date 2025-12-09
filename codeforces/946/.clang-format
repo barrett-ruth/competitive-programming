@@ -1,9 +1,4 @@
 BasedOnStyle: Google
-AllowShortBlocksOnASingleLine: false
-AllowShortCaseLabelsOnASingleLine: false
-AllowShortCompoundRequirementOnASingleLine: false
-AllowShortEnumsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: false
-AllowShortIfStatementsOnASingleLine: false
-AllowShortLambdasOnASingleLine: false
-AllowShortLoopsOnASingleLine: false
+IndentWidth: 2
+ColumnLimit: 100
+PointerAlignment: Left

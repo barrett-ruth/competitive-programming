@@ -92,7 +92,18 @@ void NO() {
 static constexpr int MOD = 1e9 + 7;
 
 void solve() {
-  println("HI");
+  int n;
+  string s;
+  cin >> n;
+  cin >> s;
+  int l = -1, r;
+  for (int i = 0; i < n; ++i) {
+    if (s[i] == 'B') {
+      if (l == -1) l = i;
+      r = i;
+    }
+  }
+  cout << r - l + 1 << '\n';
 }
 
 int main() {

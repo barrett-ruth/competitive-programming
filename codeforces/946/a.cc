@@ -7,13 +7,13 @@ namespace rv = std::views;
 namespace rs = std::ranges;
 #endif
 
-// https://codeforces.com/blog/entry/96344
-
 #pragma GCC optimize("O2,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 
 using namespace std;
 
+using i16 = int16_t;
+using u16 = uint16_t;
 using i32 = int32_t;
 using u32 = uint32_t;
 using i64 = int64_t;
@@ -27,33 +27,7 @@ constexpr T MIN = std::numeric_limits<T>::min();
 
 template <typename T>
 constexpr T MAX = std::numeric_limits<T>::max();
-
-template <typename T>
-[[nodiscard]] static T sc(auto&& x) {
-  return static_cast<T>(x);
-}
-
-template <typename T>
-[[nodiscard]] static T sz(auto&& x) {
-  return static_cast<T>(x.size());
-}
 #endif
-
-static void NO() {
-  std::cout << "NO\n";
-}
-
-static void YES() {
-  std::cout << "YES\n";
-}
-
-template <typename T>
-using vec = std::vector<T>;
-
-#define all(x) (x).begin(), (x).end()
-#define rall(x) (x).rbegin(), (x).rend()
-#define ff first
-#define ss second
 
 #ifdef LOCAL
 #define db(...) std::print(__VA_ARGS__)
@@ -65,12 +39,25 @@ using vec = std::vector<T>;
 //  }}}
 
 void solve() {
+  i32 x, y;
+  cin >> x >> y;
 
+  u32 ans = 0;
+
+  while (x > 0 || y > 0) {
+    i32 ys = min(2, y);
+    i32 xs = min(5 * 3 - ys * 2 * 2, x);
+    
+    x -= xs;
+    y -= ys;
+    ++ans;
+  }
+
+  println("{}", ans);
 }
 
 int main() {  // {{{
   std::cin.exceptions(std::cin.failbit);
-
 #ifdef LOCAL
   std::cerr.rdbuf(std::cout.rdbuf());
   std::cout.setf(std::ios::unitbuf);
@@ -78,14 +65,11 @@ int main() {  // {{{
 #else
   std::cin.tie(nullptr)->sync_with_stdio(false);
 #endif
-
   u32 tc = 1;
   std::cin >> tc;
-
   for (u32 t = 0; t < tc; ++t) {
     solve();
   }
-
   return 0;
 }
 // }}}

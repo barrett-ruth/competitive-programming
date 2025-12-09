@@ -1,6 +1,0 @@
--Wall
--Wextra
--Wpedantic
--Wshadow
--DLOCAL
--std=c++23

@@ -4,3 +4,4 @@
 *.su
 build
 io
+.clangd

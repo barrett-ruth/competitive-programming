@@ -1,0 +1,5 @@
+timeout: the monitored command dumped core
+
+[code]: 136 (SIGFPE)
+[time]: 81.4447 ms
+[debug]: false

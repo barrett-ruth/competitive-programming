@@ -39,16 +39,17 @@ constexpr T MAX = std::numeric_limits<T>::max();
 //  }}}
 
 void solve() {
-  u32 n;
-  cin >> n;
-  u32 a;
-  for (u32 i = 0; i < n; ++i) {
-    cin >> a;
-    if (a % 2 == 0) {
-      --a;
-    }
-    print("{}{}", a, " \n"[i==n-1]);
-  }
+  vector<u64> a(3);
+  for (auto& e : a) cin >> e;
+
+  sort(begin(a), end(a));
+
+  u64 diff = min(a[2], a[1] - a[0]);
+  a[0] += diff;
+  a[2] -= diff;
+  a[0] += a[2] / 2;
+
+  println("{}", a[0]);
 }
 
 int main() {  // {{{
@@ -61,7 +62,7 @@ int main() {  // {{{
   std::cin.tie(nullptr)->sync_with_stdio(false);
 #endif
   u32 tc = 1;
-  // std::cin >> tc;
+  std::cin >> tc;
   for (u32 t = 0; t < tc; ++t) {
     solve();
   }

@@ -37,42 +37,32 @@ template <typename T> constexpr T MAX = std::numeric_limits<T>::max();
 //  }}}
 
 void solve() {
-  u32 n, m;
-  cin >> n >> m;
-  vector<pair<u32, u32>> a(n);
-  for (auto &e : a) {
-    cin >> e.first >> e.second;
-  }
-  sort(begin(a), end(a));
-  u32 j = 0;
-  vector<u32> ans;
-  for (u32 i = 1; i <= m; ++i) {
-    while (i > a[j].second) {
-      ++j;
+    u32 n;
+    cin >> n;
+    u32 a;
+    for (u32 i = 0; i < n; ++i) {
+        cin >> a;
+        if (a % 2 == 0) {
+            --a;
+        }
+        print("{}{}", a, " \n"[i == n - 1]);
     }
-    if (j == n || i < a[j].first || i > a[j].second) {
-      ans.push_back(i);
-    }
-  }
-  println("{}", ans.size());
-  for (auto &e : ans)
-    print("{} ", e);
-  println();
 }
 
 int main() { // {{{
-  std::cin.exceptions(std::cin.failbit);
+    std::cin.exceptions(std::cin.failbit);
 #ifdef LOCAL
-  std::cerr.rdbuf(std::cout.rdbuf());
-  std::cout.setf(std::ios::unitbuf);
-  std::cerr.setf(std::ios::unitbuf);
+    std::cerr.rdbuf(std::cout.rdbuf());
+    std::cout.setf(std::ios::unitbuf);
+    std::cerr.setf(std::ios::unitbuf);
 #else
-  std::cin.tie(nullptr)->sync_with_stdio(false);
+    std::cin.tie(nullptr)->sync_with_stdio(false);
 #endif
-  u32 tc = 1;
-  for (u32 t = 0; t < tc; ++t) {
-    solve();
-  }
-  return 0;
+    u32 tc = 1;
+    // std::cin >> tc;
+    for (u32 t = 0; t < tc; ++t) {
+        solve();
+    }
+    return 0;
 }
 // }}}

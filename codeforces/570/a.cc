@@ -1,4 +1,4 @@
-#include <bits/stdc++.h> // {{{
+#include <bits/stdc++.h>  // {{{
 
 #include <version>
 #ifdef __cpp_lib_ranges_enumerate
@@ -22,9 +22,11 @@ using f64 = double;
 using f128 = long double;
 
 #if __cplusplus >= 202002L
-template <typename T> constexpr T MIN = std::numeric_limits<T>::min();
+template <typename T>
+constexpr T MIN = std::numeric_limits<T>::min();
 
-template <typename T> constexpr T MAX = std::numeric_limits<T>::max();
+template <typename T>
+constexpr T MAX = std::numeric_limits<T>::max();
 #endif
 
 #ifdef LOCAL
@@ -37,30 +39,26 @@ template <typename T> constexpr T MAX = std::numeric_limits<T>::max();
 //  }}}
 
 void solve() {
-  u32 n, m;
-  cin >> n >> m;
-  vector<pair<u32, u32>> a(n);
-  for (auto &e : a) {
-    cin >> e.first >> e.second;
-  }
-  sort(begin(a), end(a));
-  u32 j = 0;
-  vector<u32> ans;
-  for (u32 i = 1; i <= m; ++i) {
-    while (i > a[j].second) {
-      ++j;
+  u32 n;
+  cin >> n;
+
+  auto dsum = [](u32 N) {
+    u32 dsum = 0;
+    while (N > 0) {
+      dsum += N % 10;
+      N /= 10;
     }
-    if (j == n || i < a[j].first || i > a[j].second) {
-      ans.push_back(i);
-    }
+    return dsum;
+  };
+
+  while (dsum(n) % 4 != 0) {
+    ++n;
   }
-  println("{}", ans.size());
-  for (auto &e : ans)
-    print("{} ", e);
-  println();
+
+  println("{}", n);
 }
 
-int main() { // {{{
+int main() {  // {{{
   std::cin.exceptions(std::cin.failbit);
 #ifdef LOCAL
   std::cerr.rdbuf(std::cout.rdbuf());
@@ -70,6 +68,7 @@ int main() { // {{{
   std::cin.tie(nullptr)->sync_with_stdio(false);
 #endif
   u32 tc = 1;
+  // std::cin >> tc;
   for (u32 t = 0; t < tc; ++t) {
     solve();
   }

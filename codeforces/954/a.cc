@@ -43,14 +43,7 @@ void solve() {
   for (auto& e : a) cin >> e;
   sort(begin(a), end(a));
 
-  u32 ans = 1e9;
-  for (i32 c = 1; c <= 10; ++c) {
-    u32 diff = 0;
-    for (auto e : a) diff += abs(c - e);
-    ans = min(ans, diff);
-  }
-
-  println("{}", ans);
+  println("{}", a[1] - a[0] + a[2] - a[1]);
 }
 
 int main() {  // {{{

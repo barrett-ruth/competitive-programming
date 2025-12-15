@@ -2,4 +2,4 @@
 
 an archive of competitive programming code
 
-codeforces account: [barrettruth](https://codeforces.com/profile/barrettruth)
+codeforces account: [frozenpipe](https://codeforces.com/profile/frozenpipe)

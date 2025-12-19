@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>  // {{{
+#include <bits/stdc++.h> // {{{
 
 #include <version>
 #ifdef __cpp_lib_ranges_enumerate
@@ -22,11 +22,9 @@ using f64 = double;
 using f128 = long double;
 
 #if __cplusplus >= 202002L
-template <typename T>
-constexpr T MIN = std::numeric_limits<T>::min();
+template <typename T> constexpr T MIN = std::numeric_limits<T>::min();
 
-template <typename T>
-constexpr T MAX = std::numeric_limits<T>::max();
+template <typename T> constexpr T MAX = std::numeric_limits<T>::max();
 #endif
 
 #ifdef LOCAL
@@ -39,24 +37,16 @@ constexpr T MAX = std::numeric_limits<T>::max();
 //  }}}
 
 void solve() {
-  i32 n, H, M, h, m;
-  cin >> n >> H >> M;
+  i32 a, b, c;
+  cin >> a >> b >> c;
 
-  i32 ans = 24 * 60;
-
-  for (i32 i = 0; i < n; ++i) {
-    cin >> h >> m;
-    i32 diff = h * 60 + m - (H * 60 + M);
-    if (diff < 0) {
-      diff += 24 * 60;
-    }
-    ans = min(ans, diff);
-  }
-
-  println("{} {}", ans / 60, ans % 60);
+  println("{} {} {}",
+          max({0, b - a + 1, c - a + 1}),
+          max({0, a - b + 1, c - b + 1}),
+          max({0, b - c + 1, a - c + 1}));
 }
 
-int main() {  // {{{
+int main() { // {{{
   std::cin.exceptions(std::cin.failbit);
 #ifdef LOCAL
   std::cerr.rdbuf(std::cout.rdbuf());

@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>  // {{{
+#include <bits/stdc++.h> // {{{
 
 #include <version>
 #ifdef __cpp_lib_ranges_enumerate
@@ -22,11 +22,9 @@ using f64 = double;
 using f128 = long double;
 
 #if __cplusplus >= 202002L
-template <typename T>
-constexpr T MIN = std::numeric_limits<T>::min();
+template <typename T> constexpr T MIN = std::numeric_limits<T>::min();
 
-template <typename T>
-constexpr T MAX = std::numeric_limits<T>::max();
+template <typename T> constexpr T MAX = std::numeric_limits<T>::max();
 #endif
 
 #ifdef LOCAL
@@ -39,24 +37,20 @@ constexpr T MAX = std::numeric_limits<T>::max();
 //  }}}
 
 void solve() {
-  i32 n, H, M, h, m;
-  cin >> n >> H >> M;
+  i32 x1, y1, x2, y2, x3, y3;
+  cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
 
-  i32 ans = 24 * 60;
-
-  for (i32 i = 0; i < n; ++i) {
-    cin >> h >> m;
-    i32 diff = h * 60 + m - (H * 60 + M);
-    if (diff < 0) {
-      diff += 24 * 60;
-    }
-    ans = min(ans, diff);
+  i32 ans = abs(y2 - y1) + abs(x2 - x1);
+  if (x1 == x2 && x2 == x3 && min(y1, y2) <= y3 && y3 <= max(y1, y2)) {
+    ans += 2;
+  } else if (y1 == y2 && y2 == y3 && min(x1, x2) <= x3 && x3 <= max(x1, x2)) {
+    ans += 2;
   }
 
-  println("{} {}", ans / 60, ans % 60);
+  println("{}", ans);
 }
 
-int main() {  // {{{
+int main() { // {{{
   std::cin.exceptions(std::cin.failbit);
 #ifdef LOCAL
   std::cerr.rdbuf(std::cout.rdbuf());

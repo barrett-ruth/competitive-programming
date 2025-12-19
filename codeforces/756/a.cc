@@ -39,21 +39,22 @@ constexpr T MAX = std::numeric_limits<T>::max();
 //  }}}
 
 void solve() {
-  i32 n, H, M, h, m;
-  cin >> n >> H >> M;
+  string s;
+  cin >> s;
 
-  i32 ans = 24 * 60;
-
-  for (i32 i = 0; i < n; ++i) {
-    cin >> h >> m;
-    i32 diff = h * 60 + m - (H * 60 + M);
-    if (diff < 0) {
-      diff += 24 * 60;
+  if ((s.back() - '0') % 2 == 0) {
+    println("0");
+  } else if ((s[0] - '0') % 2 == 0) {
+    println("1");
+  } else {
+    for (auto c : s) {
+      if ((c - '0') % 2 == 0) {
+        println("2");
+        return;
+      }
     }
-    ans = min(ans, diff);
+    println("-1");
   }
-
-  println("{} {}", ans / 60, ans % 60);
 }
 
 int main() {  // {{{

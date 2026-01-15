@@ -1,5 +1,7 @@
 # competitive programming
 
-an archive of competitive programming code
+a collection of my competitive programming solutions categorized as follows:
 
-codeforces account: [frozenpipe](https://codeforces.com/profile/frozenpipe)
+- `/kattis`: a few ICPC problems from UVA's "practices"
+- `/codeforces`: codeforces contests, including every division 4 round
+- `/cses`: ~100 basic cses problems

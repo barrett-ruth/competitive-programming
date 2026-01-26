@@ -5,3 +5,4 @@
 build
 io
 .clangd
+.clang-format
